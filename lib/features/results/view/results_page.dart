@@ -1,4 +1,8 @@
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -10,14 +14,18 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/haptics.dart';
 import '../../../core/utils/motion.dart';
 import '../../../core/widgets/gradient_scaffold.dart';
+import '../../../core/widgets/left_right_spectrum.dart';
+import '../../../core/widgets/main_shell.dart';
 import '../../../core/widgets/page_header.dart';
 import '../../political_currents/models/political_current.dart';
 import '../../political_currents/repositories/political_current_repository.dart';
 import '../../quiz/bloc/quiz_bloc.dart';
-import '../../quiz/models/question.dart';
+import '../../quiz/widgets/answer_style.dart';
 import '../models/scoring_result.dart';
+import '../widgets/affinity_constellation.dart';
 import '../widgets/dimension_radar.dart';
 import '../widgets/majority_reveal.dart';
+import '../widgets/share_profile_card.dart';
 
 class ResultsPage extends StatefulWidget {
   const ResultsPage({super.key});
@@ -57,10 +65,29 @@ class _ResultsPageState extends State<ResultsPage> {
       '',
       'Ces pourcentages sont des affinités d’idées, pas une identité politique.',
     ].join('\n');
+
+    XFile? image;
+    try {
+      final topCurrents = [
+        for (final affinity in result.topCurrents.take(3))
+          if (repo.getById(affinity.currentId) != null)
+            (repo.getById(affinity.currentId)!, affinity.affinityPercent),
+      ];
+      final png = await _captureShareCard(result, topCurrents);
+      if (png != null) {
+        image = XFile.fromData(
+          png,
+          mimeType: 'image/png',
+          name: 'boussole-profil.png',
+        );
+      }
+    } catch (_) {}
+
     await SharePlus.instance.share(
       ShareParams(
         text: text,
         subject: 'Mon profil d’opinions — Boussole Politique',
+        files: image == null ? null : [image],
       ),
     );
     if (context.mounted) {
@@ -73,6 +100,42 @@ class _ResultsPageState extends State<ResultsPage> {
   Widget _motionFade(BuildContext context, {required Widget child}) {
     if (reduceMotionOf(context)) return child;
     return child.animate().fadeIn(duration: 400.ms).slideY(begin: 0.06);
+  }
+
+  Future<Uint8List?> _captureShareCard(
+    ScoringResult result,
+    List<(PoliticalCurrent current, double percent)> topCurrents,
+  ) async {
+    final overlay = Overlay.of(context);
+    final key = GlobalKey();
+    final entry = OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          left: -1000,
+          top: 0,
+          child: Material(
+            color: Colors.transparent,
+            child: RepaintBoundary(
+              key: key,
+              child: ShareProfileCard(result: result, topCurrents: topCurrents),
+            ),
+          ),
+        );
+      },
+    );
+    overlay.insert(entry);
+    await WidgetsBinding.instance.endOfFrame;
+    await Future<void>.delayed(const Duration(milliseconds: 24));
+    try {
+      final boundary =
+          key.currentContext?.findRenderObject() as RenderRepaintBoundary?;
+      if (boundary == null) return null;
+      final captured = await boundary.toImage(pixelRatio: 3);
+      final bytes = await captured.toByteData(format: ui.ImageByteFormat.png);
+      return bytes?.buffer.asUint8List();
+    } finally {
+      entry.remove();
+    }
   }
 
   @override
@@ -89,7 +152,12 @@ class _ResultsPageState extends State<ResultsPage> {
           return GradientScaffold(
             child: SafeArea(
               child: ListView(
-                padding: const EdgeInsets.fromLTRB(24, 16, 24, 40),
+                padding: EdgeInsets.fromLTRB(
+                  24,
+                  16,
+                  24,
+                  AppNavMetrics.clearance(context),
+                ),
                 children: [
                   PageHeader(
                     title: 'Profil pas encore disponible',
@@ -142,11 +210,25 @@ class _ResultsPageState extends State<ResultsPage> {
             ? top.first.affinityPercent
             : 50.0;
         final showDetails = _showDetails || reduceMotion || majority == null;
+        final spectrumMarkers = [
+          for (final affinity in top.take(3))
+            if (byId[affinity.currentId] != null)
+              SpectrumMarker(
+                position: byId[affinity.currentId]!.hemicycleAngle,
+                color: byId[affinity.currentId]!.color,
+                label: byId[affinity.currentId]!.name,
+              ),
+        ];
 
         return GradientScaffold(
           child: SafeArea(
             child: ListView(
-              padding: const EdgeInsets.fromLTRB(24, 16, 24, 40),
+              padding: EdgeInsets.fromLTRB(
+                24,
+                16,
+                24,
+                AppNavMetrics.clearance(context) - 24,
+              ),
               children: [
                 PageHeader(
                   title: 'Ton profil',
@@ -196,6 +278,30 @@ class _ResultsPageState extends State<ResultsPage> {
                     },
                   ),
                 if (showDetails) ...[
+                  const SizedBox(height: 20),
+                  LeftRightSpectrum(
+                    position: result.hemicyclePosition,
+                    accent: majority?.color ?? AppColors.electricBlue,
+                    title: 'Où tu te situes',
+                    markers: spectrumMarkers,
+                    footnote:
+                        'Le gros point, c’est toi. Les petits points sont tes courants les plus proches.\nRepère pédagogique, pas une étiquette définitive.',
+                  ),
+                  const SizedBox(height: 20),
+                  Text('Tes plus proches', style: context.textTheme.titleLarge),
+                  const SizedBox(height: 8),
+                  _motionFade(
+                    context,
+                    child: SoftCard(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                      child: AffinityConstellation(
+                        currents: currents,
+                        result: result,
+                        onCurrentTap: (current) =>
+                            context.push('/current/${current.id}'),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 20),
                   Text('Tes affinités', style: context.textTheme.titleLarge),
                   const SizedBox(height: 8),
@@ -367,7 +473,7 @@ class _InfluentialAnswerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visual = _AnswerVisual.of(item.answer.value);
+    final value = item.answer.value;
 
     return SoftCard(
       padding: const EdgeInsets.all(16),
@@ -380,20 +486,24 @@ class _InfluentialAnswerCard extends StatelessWidget {
                 width: 42,
                 height: 42,
                 decoration: BoxDecoration(
-                  color: visual.color.withValues(alpha: 0.12),
+                  color: value.color.withValues(alpha: 0.12),
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: visual.color.withValues(alpha: 0.28),
+                    color: value.color.withValues(alpha: 0.28),
                   ),
                 ),
-                child: Icon(visual.icon, color: visual.color, size: 22),
+                child: Icon(
+                  value.icon,
+                  color: value.color,
+                  size: value.isStrong ? 26 : 20,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  item.answer.value.label,
+                  value.label,
                   style: context.textTheme.titleMedium?.copyWith(
-                    color: visual.color,
+                    color: value.color,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -463,47 +573,5 @@ class _InfluentialAnswerCard extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class _AnswerVisual {
-  const _AnswerVisual({
-    required this.icon,
-    required this.color,
-    required this.chipLabel,
-  });
-
-  final IconData icon;
-  final Color color;
-  final String chipLabel;
-
-  static _AnswerVisual of(AnswerValue value) {
-    return switch (value) {
-      AnswerValue.superYes => const _AnswerVisual(
-        icon: Icons.keyboard_double_arrow_right_rounded,
-        color: AppColors.superYes,
-        chipLabel: 'FORT OUI',
-      ),
-      AnswerValue.yes => const _AnswerVisual(
-        icon: Icons.favorite_rounded,
-        color: AppColors.yes,
-        chipLabel: 'OUI',
-      ),
-      AnswerValue.skip => const _AnswerVisual(
-        icon: Icons.skip_next_rounded,
-        color: AppColors.skip,
-        chipLabel: 'PASSER',
-      ),
-      AnswerValue.no => const _AnswerVisual(
-        icon: Icons.close_rounded,
-        color: AppColors.no,
-        chipLabel: 'NON',
-      ),
-      AnswerValue.superNo => const _AnswerVisual(
-        icon: Icons.keyboard_double_arrow_left_rounded,
-        color: AppColors.superNo,
-        chipLabel: 'FORT NON',
-      ),
-    };
   }
 }

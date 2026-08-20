@@ -11,11 +11,9 @@ void main() {
     id: 'w1',
     text: 'Les services publics devraient être renforcés.',
     category: 'public_services',
-    tags: const ['services'],
+    tags: ['services'],
     difficulty: QuestionDifficulty.intro,
-    impacts: const [
-      QuestionImpact(currentId: 'socialisme', weight: 1),
-    ],
+    impacts: [QuestionImpact(currentId: 'socialisme', weight: 1)],
   );
 
   testWidgets('AnswerButtons déclenche les callbacks', (tester) async {
@@ -23,9 +21,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         theme: AppTheme.light(),
-        home: Scaffold(
-          body: AnswerButtons(onAnswer: received.add),
-        ),
+        home: Scaffold(body: AnswerButtons(onAnswer: received.add)),
       ),
     );
 
@@ -52,7 +48,37 @@ void main() {
       ),
     );
 
-    expect(find.textContaining('services publics'), findsOneWidget);
-    expect(find.text('AFFIRMATION'), findsOneWidget);
+    expect(
+      find.text('Les services publics devraient être renforcés.'),
+      findsOneWidget,
+    );
+    expect(find.textContaining('CONTEXTE'), findsOneWidget);
+  });
+
+  testWidgets('SwipeCard répond au bouton programmatique', (tester) async {
+    AnswerValue? received;
+    final key = GlobalObjectKey<SwipeCardState>('swipe');
+
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: AppTheme.light(),
+        home: MediaQuery(
+          data: const MediaQueryData(disableAnimations: true),
+          child: Scaffold(
+            body: SwipeCard(
+              key: key,
+              question: question,
+              haptics: AppHaptics(enabled: false),
+              reduceMotion: true,
+              onAnswered: (value) => received = value,
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await key.currentState!.answerProgrammatically(AnswerValue.yes);
+    await tester.pump();
+    expect(received, AnswerValue.yes);
   });
 }

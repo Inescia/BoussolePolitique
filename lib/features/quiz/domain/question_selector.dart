@@ -67,8 +67,7 @@ class QuestionSelector {
     final result = <DimensionFamily, double>{};
     for (final family in DimensionFamily.values) {
       final cats = family.dimensions.map((d) => d.id).toSet();
-      final total =
-          allQuestions.where((q) => cats.contains(q.category)).length;
+      final total = allQuestions.where((q) => cats.contains(q.category)).length;
       if (total == 0) {
         result[family] = 0;
         continue;
@@ -76,8 +75,7 @@ class QuestionSelector {
       final done = allQuestions
           .where(
             (q) =>
-                cats.contains(q.category) &&
-                answeredQuestionIds.contains(q.id),
+                cats.contains(q.category) && answeredQuestionIds.contains(q.id),
           )
           .length;
       result[family] = done / total;

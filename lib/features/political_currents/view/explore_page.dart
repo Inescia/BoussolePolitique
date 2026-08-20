@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/extensions/context_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/gradient_scaffold.dart';
+import '../../../core/widgets/main_shell.dart';
 import '../../../core/widgets/page_header.dart';
 import '../../quiz/bloc/quiz_bloc.dart';
 import '../models/political_current.dart';
@@ -31,8 +32,15 @@ class ExplorePage extends StatefulWidget {
 }
 
 class _ExplorePageState extends State<ExplorePage> {
+  final _search = TextEditingController();
   String _query = '';
   String? _family;
+
+  @override
+  void dispose() {
+    _search.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,10 +100,21 @@ class _ExplorePageState extends State<ExplorePage> {
                       ),
                     if (showAffinityHint) const SizedBox(height: 16),
                     TextField(
+                      controller: _search,
                       onChanged: (v) => setState(() => _query = v),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         hintText: 'Rechercher un courant…',
-                        prefixIcon: Icon(Icons.search_rounded),
+                        prefixIcon: const Icon(Icons.search_rounded),
+                        suffixIcon: _query.isEmpty
+                            ? null
+                            : IconButton(
+                                tooltip: 'Effacer',
+                                icon: const Icon(Icons.close_rounded),
+                                onPressed: () {
+                                  _search.clear();
+                                  setState(() => _query = '');
+                                },
+                              ),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -152,6 +171,7 @@ class _ExplorePageState extends State<ExplorePage> {
                         const SizedBox(height: 16),
                         FilledButton(
                           onPressed: () => setState(() {
+                            _search.clear();
                             _query = '';
                             _family = null;
                           }),
@@ -164,7 +184,12 @@ class _ExplorePageState extends State<ExplorePage> {
               )
             else
               SliverPadding(
-                padding: const EdgeInsets.fromLTRB(20, 8, 20, 80),
+                padding: EdgeInsets.fromLTRB(
+                  20,
+                  8,
+                  20,
+                  AppNavMetrics.clearance(context),
+                ),
                 sliver: SliverList.separated(
                   itemCount: items.length,
                   separatorBuilder: (_, index) => const SizedBox(height: 12),

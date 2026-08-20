@@ -188,11 +188,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               : Icons.arrow_forward_rounded,
                           size: 18,
                         ),
-                        label: Text(
-                          _last
-                              ? (_replay ? 'Fermer' : 'C’est parti')
-                              : 'Suite',
-                        ),
+                        label: Text(_last ? 'C’est parti' : 'Suite'),
                       ),
                     ],
                   ),
@@ -208,7 +204,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Widget _buildHeader() {
     if (_replay) {
       return PageHeader(
-        title: 'Intro',
+        title: 'Découverte',
         showBack: true,
         onBack: () => context.pop(),
       );
@@ -246,14 +242,14 @@ class _IntroSlide extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final compact = constraints.maxHeight < 500;
+        final compact = constraints.maxHeight < 560;
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                flex: compact ? 5 : 6,
+                flex: compact ? 4 : 5,
                 child: motionAware(
                   context: context,
                   child: scene,
@@ -262,7 +258,7 @@ class _IntroSlide extends StatelessWidget {
                       .fadeIn(duration: 420.ms)
                       .scale(
                         begin: const Offset(0.96, 0.96),
-                        curve: Curves.easeOutBack,
+                        curve: Curves.easeOutCubic,
                       ),
                 ),
               ),

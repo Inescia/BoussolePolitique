@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/gradient_scaffold.dart';
+import '../../../core/widgets/main_shell.dart';
 import '../../../core/widgets/page_header.dart';
 import '../bloc/settings_bloc.dart';
 
@@ -15,7 +16,12 @@ class SettingsPage extends StatelessWidget {
     return GradientScaffold(
       child: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 88),
+          padding: EdgeInsets.fromLTRB(
+            24,
+            16,
+            24,
+            AppNavMetrics.clearance(context),
+          ),
           children: [
             const PageHeader(
               title: 'Réglages',
@@ -25,14 +31,14 @@ class SettingsPage extends StatelessWidget {
             const SizedBox(height: 16),
             SoftCard(
               onTap: () => context.push('/onboarding?replay=1'),
-              semanticLabel: 'Revoir l’intro',
+              semanticLabel: 'Revoir la découverte',
               child: const ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: _SettingsIcon(
                   icon: Icons.swipe_rounded,
                   color: AppColors.electricBlue,
                 ),
-                title: Text('Revoir l’intro'),
+                title: Text('Revoir la découverte'),
                 subtitle: Text('Gestes de swipe et principes de l’app.'),
                 trailing: Icon(Icons.chevron_right_rounded),
               ),

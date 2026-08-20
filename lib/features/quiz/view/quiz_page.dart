@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/ads/ad_service.dart';
 import '../../../core/ads/adaptive_banner_ad.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../../core/extensions/context_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/haptics.dart';
@@ -12,6 +13,7 @@ import '../../../core/widgets/gradient_scaffold.dart';
 import '../../../core/widgets/page_header.dart';
 import '../bloc/quiz_bloc.dart';
 import '../models/question.dart';
+import '../repositories/progress_repository.dart';
 import '../widgets/answer_buttons.dart';
 import '../widgets/swipe_card.dart';
 
@@ -25,6 +27,8 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   late final AppHaptics _haptics;
   bool _adInFlight = false;
+  bool _demoStarted = false;
+  bool _demoing = false;
 
   @override
   void initState() {
@@ -59,6 +63,47 @@ class _QuizPageState extends State<QuizPage> {
     }
   }
 
+  void _maybeStartSwipeDemo(QuizState state) {
+    if (_demoStarted) return;
+    if (state.currentQuestion == null) return;
+    if (state.answeredCount >= AppConstants.swipeTipDismissAfterAnswers) {
+      _demoStarted = true;
+      return;
+    }
+    if (MediaQuery.disableAnimationsOf(context)) {
+      _demoStarted = true;
+      return;
+    }
+    final repo = context.read<ProgressRepository>();
+    if (!repo.showSwipeTip) {
+      _demoStarted = true;
+      return;
+    }
+
+    _demoStarted = true;
+    final questionId = state.currentQuestion!.id;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
+      setState(() => _demoing = true);
+      var card = GlobalObjectKey<SwipeCardState>(questionId).currentState;
+      if (card == null) {
+        await Future<void>.delayed(const Duration(milliseconds: 80));
+        if (!mounted) return;
+        card = GlobalObjectKey<SwipeCardState>(questionId).currentState;
+      }
+      if (card == null) {
+        _demoStarted = false;
+        setState(() => _demoing = false);
+        return;
+      }
+      await card.playDirectionDemo();
+      if (!mounted) return;
+      await repo.setShowSwipeTip(false);
+      if (!mounted) return;
+      setState(() => _demoing = false);
+    });
+  }
+
   Future<void> _maybeShowVideoAd(int answeredCount) async {
     if (_adInFlight || !mounted) return;
     setState(() => _adInFlight = true);
@@ -79,13 +124,18 @@ class _QuizPageState extends State<QuizPage> {
       listenWhen: (p, c) =>
           p.status != c.status ||
           p.answeredCount != c.answeredCount ||
-          p.showPartialHint != c.showPartialHint,
+          p.showPartialHint != c.showPartialHint ||
+          p.currentQuestion != c.currentQuestion,
       listener: (context, state) {
         if (state.status == QuizStatus.completed &&
             !state.hasRemainingQuestions) {
           _haptics.play(HapticKind.success);
           context.go('/results');
           return;
+        }
+        if (state.status == QuizStatus.active &&
+            state.currentQuestion != null) {
+          _maybeStartSwipeDemo(state);
         }
         if (state.status == QuizStatus.active && state.answeredCount > 0) {
           _maybeShowVideoAd(state.answeredCount);
@@ -161,7 +211,8 @@ class _QuizPageState extends State<QuizPage> {
         final busy =
             state.status == QuizStatus.processing ||
             state.status == QuizStatus.loading ||
-            _adInFlight;
+            _adInFlight ||
+            _demoing;
         final loading = state.status == QuizStatus.loading;
 
         return GradientScaffold(
@@ -186,17 +237,6 @@ class _QuizPageState extends State<QuizPage> {
                             context.read<QuizBloc>().add(const AnswerUndone());
                           },
                         ),
-                      if (state.canShowResults)
-                        RoundHeaderAction(
-                          icon: Icons.insights_outlined,
-                          tooltip: 'Voir les résultats',
-                          onTap: () {
-                            context.read<QuizBloc>().add(
-                              const ResultsRequested(),
-                            );
-                            context.push('/results');
-                          },
-                        ),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -208,6 +248,8 @@ class _QuizPageState extends State<QuizPage> {
                         '${((state.result?.dimensionCoverage ?? 0) * 100).round()} pour cent.',
                     child: _ProgressHeader(state: state),
                   ),
+                  const SizedBox(height: 10),
+                  _ProfileTip(state: state),
                   const SizedBox(height: 12),
                   Expanded(
                     child: loading
@@ -257,32 +299,31 @@ class _QuizPageState extends State<QuizPage> {
                           )
                         : Center(
                             child: ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                maxHeight: 300,
-                              ),
-                              child: SwipeCard(
-                                    key: GlobalObjectKey<SwipeCardState>(
-                                      question.id,
-                                    ),
-                                    question: question,
-                                    enabled: !busy,
-                                    reduceMotion: reduceMotion,
-                                    haptics: _haptics,
-                                    progressLabel: state.questions.isEmpty
-                                        ? null
-                                        : '${state.answers.length + 1} / ${state.questions.length}',
-                                    onAnswered: (value) {
-                                      context.read<QuizBloc>().add(
-                                        AnswerSubmitted(value),
-                                      );
-                                    },
-                                  )
-                                  .animate(target: reduceMotion ? 0 : 1)
-                                  .fadeIn(duration: 280.ms)
-                                  .scale(
-                                    begin: const Offset(0.96, 0.96),
-                                    curve: Curves.easeOutCubic,
-                                  ),
+                              constraints: const BoxConstraints(maxHeight: 250),
+                              child:
+                                  SwipeCard(
+                                        key: GlobalObjectKey<SwipeCardState>(
+                                          question.id,
+                                        ),
+                                        question: question,
+                                        enabled: !busy,
+                                        reduceMotion: reduceMotion,
+                                        haptics: _haptics,
+                                        progressLabel: state.questions.isEmpty
+                                            ? null
+                                            : '${state.answers.length + 1} / ${state.questions.length}',
+                                        onAnswered: (value) {
+                                          context.read<QuizBloc>().add(
+                                            AnswerSubmitted(value),
+                                          );
+                                        },
+                                      )
+                                      .animate(target: reduceMotion ? 0 : 1)
+                                      .fadeIn(duration: 280.ms)
+                                      .scale(
+                                        begin: const Offset(0.96, 0.96),
+                                        curve: Curves.easeOutCubic,
+                                      ),
                             ),
                           ),
                   ),
@@ -333,5 +374,92 @@ class _ProgressHeader extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class _ProfileTip extends StatelessWidget {
+  const _ProfileTip({required this.state});
+
+  final QuizState state;
+
+  @override
+  Widget build(BuildContext context) {
+    final remaining =
+        (AppConstants.minAnswersForPartialResult - state.answeredCount).clamp(
+          0,
+          AppConstants.minAnswersForPartialResult,
+        );
+    final ready = state.canShowResults;
+    final highlight = state.showPartialHint;
+
+    final text = highlight
+        ? 'Astuce : tu peux déjà jeter un œil à ton profil.'
+        : ready
+        ? 'Ton profil est prêt — appuie pour le voir.'
+        : remaining == 0
+        ? 'Encore quelques cartes pour un premier aperçu.'
+        : 'Encore $remaining carte${remaining > 1 ? 's' : ''} '
+              'pour un premier profil.';
+
+    final tip = Material(
+      color: AppColors.electricBlue.withValues(alpha: highlight ? 0.12 : 0.07),
+      borderRadius: BorderRadius.circular(14),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(14),
+        onTap: ready
+            ? () {
+                context.read<QuizBloc>().add(const ResultsRequested());
+                context.push('/results');
+              }
+            : null,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(12, 8, 6, 8),
+          child: Row(
+            children: [
+              Icon(
+                highlight
+                    ? Icons.lightbulb_outline_rounded
+                    : ready
+                    ? Icons.badge_outlined
+                    : Icons.info_outline_rounded,
+                size: 18,
+                color: AppColors.electricBlue,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  text,
+                  style: context.textTheme.bodySmall?.copyWith(
+                    color: AppColors.ink,
+                    height: 1.25,
+                  ),
+                ),
+              ),
+              if (highlight)
+                IconButton(
+                  visualDensity: VisualDensity.compact,
+                  tooltip: 'Masquer l’astuce',
+                  icon: const Icon(Icons.close_rounded, size: 18),
+                  color: AppColors.warmGray,
+                  onPressed: () => context.read<QuizBloc>().add(
+                    const PartialHintDismissed(),
+                  ),
+                )
+              else
+                Icon(
+                  ready
+                      ? Icons.chevron_right_rounded
+                      : Icons.lock_outline_rounded,
+                  size: 18,
+                  color: AppColors.warmGray,
+                ),
+              if (!highlight) const SizedBox(width: 6),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    return Semantics(button: ready, label: text, child: tip);
   }
 }

@@ -3,7 +3,7 @@ import '../models/question.dart';
 
 class QuestionRepository {
   QuestionRepository({List<Question>? questions})
-      : _questions = List.unmodifiable(questions ?? loadQuestions());
+    : _questions = List.unmodifiable(questions ?? loadQuestions());
 
   final List<Question> _questions;
 

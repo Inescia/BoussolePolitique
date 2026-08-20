@@ -90,13 +90,10 @@ class _AdaptiveBannerAdState extends State<AdaptiveBannerAd> {
 
     return ColoredBox(
       color: AppColors.warmWhite,
-      child: SafeArea(
-        top: false,
-        child: SizedBox(
-          width: _banner!.size.width.toDouble(),
-          height: _banner!.size.height.toDouble(),
-          child: AdWidget(ad: _banner!),
-        ),
+      child: SizedBox(
+        width: _banner!.size.width.toDouble(),
+        height: _banner!.size.height.toDouble(),
+        child: AdWidget(ad: _banner!),
       ),
     );
   }

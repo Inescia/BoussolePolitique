@@ -28,8 +28,12 @@ class CurrentAffinity extends Equatable {
   final double answeredWeight;
 
   @override
-  List<Object?> get props =>
-      [currentId, rawScore, affinityPercent, answeredWeight];
+  List<Object?> get props => [
+    currentId,
+    rawScore,
+    affinityPercent,
+    answeredWeight,
+  ];
 }
 
 class DimensionScore extends Equatable {
@@ -67,8 +71,12 @@ class InfluentialAnswer extends Equatable {
   final List<String> topCurrentIds;
 
   @override
-  List<Object?> get props =>
-      [question, answer, influenceMagnitude, topCurrentIds];
+  List<Object?> get props => [
+    question,
+    answer,
+    influenceMagnitude,
+    topCurrentIds,
+  ];
 }
 
 class ScoringResult extends Equatable {
@@ -105,13 +113,13 @@ class ScoringResult extends Equatable {
 
   @override
   List<Object?> get props => [
-        affinities,
-        topCurrents,
-        dimensionScores,
-        answerCount,
-        skipCount,
-        dimensionCoverage,
-        completeness,
-        hemicyclePosition,
-      ];
+    affinities,
+    topCurrents,
+    dimensionScores,
+    answerCount,
+    skipCount,
+    dimensionCoverage,
+    completeness,
+    hemicyclePosition,
+  ];
 }

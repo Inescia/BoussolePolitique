@@ -84,14 +84,16 @@ class ScoringEngine {
         affinityPercent: percent.clamp(0, 100),
         answeredWeight: answeredWeight[id]!,
       );
-    }).toList()
-      ..sort((a, b) => b.affinityPercent.compareTo(a.affinityPercent));
+    }).toList()..sort((a, b) => b.affinityPercent.compareTo(a.affinityPercent));
 
-    final topCurrents =
-        affinities.where((a) => a.answeredWeight > 0).take(5).toList();
+    final topCurrents = affinities
+        .where((a) => a.answeredWeight > 0)
+        .take(5)
+        .toList();
 
-    influenceCandidates
-        .sort((a, b) => b.influenceMagnitude.compareTo(a.influenceMagnitude));
+    influenceCandidates.sort(
+      (a, b) => b.influenceMagnitude.compareTo(a.influenceMagnitude),
+    );
 
     final dimensionScores = _computeDimensionScores(
       questions: questions,
@@ -162,8 +164,9 @@ class ScoringEngine {
       final familyQuestions = questions
           .where((q) => familyCategories.contains(q.category))
           .toList();
-      final answeredInFamily =
-          familyQuestions.where((q) => answeredIds.contains(q.id)).length;
+      final answeredInFamily = familyQuestions
+          .where((q) => answeredIds.contains(q.id))
+          .length;
 
       // Lean directionnel : réponse × polarité des impacts (évite le biais « tout oui »).
       double leanSum = 0;

@@ -22,7 +22,9 @@ class _DimensionRadarState extends State<DimensionRadar>
   @override
   void initState() {
     super.initState();
-    final reduceMotion = WidgetsBinding.instance.platformDispatcher
+    final reduceMotion = WidgetsBinding
+        .instance
+        .platformDispatcher
         .accessibilityFeatures
         .disableAnimations;
     _controller = AnimationController(

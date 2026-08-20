@@ -5,6 +5,51 @@ import 'package:go_router/go_router.dart';
 import '../theme/app_colors.dart';
 import '../utils/motion.dart';
 
+/// Métriques de la barre d’onglets flottante.
+abstract final class AppNavMetrics {
+  static const barHeight = 52.0;
+
+  /// Espace à laisser en bas du contenu pour ne pas passer sous la barre.
+  static double clearance(BuildContext context) {
+    final bottom = MediaQuery.paddingOf(context).bottom;
+    return barHeight + (bottom > 0 ? bottom + 8 : 14) + 16;
+  }
+
+  static const tabLocations = ['/explore', '/home', '/settings'];
+}
+
+/// Superpose la navbar sur une page hors shell (quiz, résultats, fiches…).
+class AppNavOverlay extends StatelessWidget {
+  const AppNavOverlay({
+    super.key,
+    required this.child,
+    required this.selectedIndex,
+  });
+
+  final Widget child;
+  final int selectedIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Positioned.fill(child: child),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: FrenchFlagNavBar(
+              index: selectedIndex,
+              onTap: (i) => context.go(AppNavMetrics.tabLocations[i]),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 /// Coque principale : 3 onglets dans une barre tricolore (drapeau français).
 class MainShell extends StatelessWidget {
   const MainShell({super.key, required this.navigationShell});
@@ -28,7 +73,7 @@ class MainShell extends StatelessWidget {
             left: 0,
             right: 0,
             bottom: 0,
-            child: _FrenchFlagNavBar(
+            child: FrenchFlagNavBar(
               index: navigationShell.currentIndex,
               onTap: _onTap,
             ),
@@ -40,8 +85,8 @@ class MainShell extends StatelessWidget {
 }
 
 /// Barre flottante : trois bandes verticales bleu · blanc · rouge.
-class _FrenchFlagNavBar extends StatelessWidget {
-  const _FrenchFlagNavBar({required this.index, required this.onTap});
+class FrenchFlagNavBar extends StatelessWidget {
+  const FrenchFlagNavBar({super.key, required this.index, required this.onTap});
 
   final int index;
   final ValueChanged<int> onTap;
@@ -61,7 +106,6 @@ class _FrenchFlagNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const barWidth = 250.0;
-    const barHeight = 52.0;
     final bottom = MediaQuery.paddingOf(context).bottom;
     final reduceMotion = reduceMotionOf(context);
 
@@ -70,7 +114,7 @@ class _FrenchFlagNavBar extends StatelessWidget {
       child: Center(
         child: SizedBox(
           width: barWidth,
-          height: barHeight,
+          height: AppNavMetrics.barHeight,
           child: DecoratedBox(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18),

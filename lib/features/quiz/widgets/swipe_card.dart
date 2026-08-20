@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/haptics.dart';
+import '../models/political_dimension.dart';
+import '../models/political_dimension_hints.dart';
 import '../models/question.dart';
+import 'answer_style.dart';
 
 typedef SwipeAnswerCallback = void Function(AnswerValue value);
 
@@ -50,17 +53,18 @@ class SwipeCardState extends State<SwipeCard>
   @override
   void initState() {
     super.initState();
-    _resetController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: widget.reduceMotion ? 80 : 280),
-    )..addListener(() {
-        if (_resetAnimation != null) {
-          setState(() {
-            _offset = _resetAnimation!.value;
-            _angle = widget.reduceMotion ? 0 : _offset.dx / 320 * 0.22;
-          });
-        }
-      });
+    _resetController =
+        AnimationController(
+          vsync: this,
+          duration: Duration(milliseconds: widget.reduceMotion ? 80 : 280),
+        )..addListener(() {
+          if (_resetAnimation != null) {
+            setState(() {
+              _offset = _resetAnimation!.value;
+              _angle = widget.reduceMotion ? 0 : _offset.dx / 320 * 0.22;
+            });
+          }
+        });
   }
 
   @override
@@ -116,7 +120,7 @@ class SwipeCardState extends State<SwipeCard>
 
   AnswerValue? get _preview => _valueForOffset(_offset);
 
-  Future<void> _flyOut(AnswerValue value) async {
+  Future<void> _flyOut(AnswerValue value, {bool fromButton = false}) async {
     if (_locked) return;
     setState(() => _locked = true);
 
@@ -134,14 +138,34 @@ class SwipeCardState extends State<SwipeCard>
       return;
     }
 
-    final anim = Tween<Offset>(begin: _offset, end: end).animate(
-      CurvedAnimation(parent: _resetController, curve: Curves.easeInCubic),
+    final previousDuration = _resetController.duration;
+    _resetController.duration = Duration(milliseconds: fromButton ? 920 : 320);
+
+    var begin = _offset;
+    if (fromButton && begin.distance < 8) {
+      begin = switch (value) {
+        AnswerValue.superYes => const Offset(42, -50),
+        AnswerValue.yes => const Offset(42, 50),
+        AnswerValue.superNo => const Offset(-42, -50),
+        AnswerValue.no => const Offset(-42, 50),
+        AnswerValue.skip => const Offset(0, 56),
+      };
+      setState(() {
+        _offset = begin;
+        _angle = begin.dx / 320 * 0.22;
+      });
+    }
+
+    final anim = Tween<Offset>(begin: begin, end: end).animate(
+      CurvedAnimation(
+        parent: _resetController,
+        curve: fromButton ? Curves.easeInOutCubic : Curves.easeInCubic,
+      ),
     );
     _resetAnimation = anim;
-    _resetController.forward(from: 0);
-    await Future<void>.delayed(const Duration(milliseconds: 220));
+    await _resetController.forward(from: 0);
+    _resetController.duration = previousDuration;
     if (!mounted) return;
-    // Coupe l’anim pour qu’un reset ultérieur ne réécrive pas l’offset.
     _resetAnimation = null;
     _resetController.stop();
     widget.onAnswered(value);
@@ -165,12 +189,58 @@ class SwipeCardState extends State<SwipeCard>
     });
   }
 
+  Future<void> playDirectionDemo() async {
+    if (!mounted || widget.reduceMotion || _locked) return;
+    setState(() => _locked = true);
+
+    const targets = [
+      Offset(-52, -62),
+      Offset(52, -62),
+      Offset(0, 54),
+      Offset(-52, 62),
+      Offset(52, 62),
+    ];
+    final previousDuration = _resetController.duration;
+
+    for (final target in targets) {
+      if (!mounted) return;
+      await _animateOffsetTo(target, const Duration(milliseconds: 380));
+      await Future<void>.delayed(const Duration(milliseconds: 220));
+      if (!mounted) return;
+      await _animateOffsetTo(Offset.zero, const Duration(milliseconds: 280));
+      await Future<void>.delayed(const Duration(milliseconds: 90));
+    }
+
+    _resetController.duration = previousDuration;
+    if (!mounted) return;
+    setState(() {
+      _offset = Offset.zero;
+      _angle = 0;
+      _armed = null;
+      _locked = false;
+    });
+  }
+
+  Future<void> _animateOffsetTo(Offset end, Duration duration) async {
+    _resetController.duration = duration;
+    final anim = Tween<Offset>(begin: _offset, end: end).animate(
+      CurvedAnimation(parent: _resetController, curve: Curves.easeInOutCubic),
+    );
+    _resetAnimation = anim;
+    await _resetController.forward(from: 0);
+    if (!mounted) return;
+    setState(() {
+      _offset = end;
+      _angle = widget.reduceMotion ? 0 : end.dx / 320 * 0.22;
+    });
+  }
+
   Future<void> answerProgrammatically(AnswerValue value) async {
     if (!_canInteract) return;
     await widget.haptics.play(
       value.isStrong ? HapticKind.heavy : HapticKind.medium,
     );
-    await _flyOut(value);
+    await _flyOut(value, fromButton: true);
   }
 
   void _onPanUpdate(DragUpdateDetails details) {
@@ -208,8 +278,10 @@ class SwipeCardState extends State<SwipeCard>
   @override
   Widget build(BuildContext context) {
     final preview = _preview;
-    final progress =
-        (_offset.distance / (_commitDistance * 1.35)).clamp(0.0, 1.0);
+    final progress = (_offset.distance / (_commitDistance * 1.35)).clamp(
+      0.0,
+      1.0,
+    );
 
     return Semantics(
       label: 'Affirmation politique. ${widget.question.text}',
@@ -238,7 +310,7 @@ class SwipeCardState extends State<SwipeCard>
                     border: Border.all(
                       color: preview == null
                           ? AppColors.softGray.withValues(alpha: 0.7)
-                          : _badgeColor(preview).withValues(alpha: 0.55),
+                          : preview.color.withValues(alpha: 0.55),
                       width: 2,
                     ),
                     boxShadow: [
@@ -257,9 +329,7 @@ class SwipeCardState extends State<SwipeCard>
                           if (widget.progressLabel != null)
                             Text(
                               widget.progressLabel!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelMedium
+                              style: Theme.of(context).textTheme.labelMedium
                                   ?.copyWith(
                                     color: AppColors.electricBlue,
                                     fontWeight: FontWeight.w700,
@@ -273,15 +343,14 @@ class SwipeCardState extends State<SwipeCard>
                                 vertical: 4,
                               ),
                               decoration: BoxDecoration(
-                                color: AppColors.electricBlue
-                                    .withValues(alpha: 0.08),
+                                color: AppColors.electricBlue.withValues(
+                                  alpha: 0.08,
+                                ),
                                 borderRadius: BorderRadius.circular(99),
                               ),
                               child: Text(
                                 _categoryLabel(widget.question.category)!,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
+                                style: Theme.of(context).textTheme.labelSmall
                                     ?.copyWith(color: AppColors.deepBlue),
                               ),
                             ),
@@ -292,18 +361,14 @@ class SwipeCardState extends State<SwipeCard>
                           alignment: Alignment.centerLeft,
                           child: Text(
                             widget.question.text,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(
-                                  height: 1.28,
-                                  color: AppColors.ink,
-                                ),
+                            style: Theme.of(context).textTheme.headlineSmall
+                                ?.copyWith(height: 1.28, color: AppColors.ink),
                           ),
                         ),
                       ),
                       _CardContext(
-                        text: widget.question.explanation ??
+                        text:
+                            widget.question.explanation ??
                             _categoryHint(widget.question.category),
                         source: widget.question.source,
                       ),
@@ -319,7 +384,7 @@ class SwipeCardState extends State<SwipeCard>
                             scale: 0.82 + progress * 0.28,
                             child: _Stamp(
                               label: preview.badge,
-                              color: _badgeColor(preview),
+                              color: preview.color,
                             ),
                           ).animateOpacity(progress),
                         ),
@@ -334,121 +399,12 @@ class SwipeCardState extends State<SwipeCard>
     );
   }
 
-  Color _badgeColor(AnswerValue value) => switch (value) {
-        AnswerValue.superYes => AppColors.superYes,
-        AnswerValue.yes => AppColors.yes,
-        AnswerValue.superNo => AppColors.superNo,
-        AnswerValue.no => AppColors.no,
-        AnswerValue.skip => AppColors.skip,
-      };
+  String? _categoryLabel(String id) =>
+      PoliticalDimension.tryFromId(id)?.chipLabel;
 
-  String? _categoryLabel(String id) {
-    const labels = {
-      'economy': 'Économie',
-      'taxation': 'Fiscalité',
-      'redistribution': 'Redistribution',
-      'work': 'Travail',
-      'social_protection': 'Protection sociale',
-      'public_services': 'Services publics',
-      'enterprise': 'Entreprise',
-      'property': 'Propriété',
-      'market': 'Marché',
-      'civil_liberties': 'Libertés',
-      'society': 'Société',
-      'family': 'Famille',
-      'religion_laicity': 'Laïcité',
-      'immigration': 'Immigration',
-      'integration': 'Intégration',
-      'security': 'Sécurité',
-      'justice': 'Justice',
-      'authority': 'Autorité',
-      'institutions': 'Institutions',
-      'democracy': 'Démocratie',
-      'decentralization': 'Territoires',
-      'sovereignty': 'Souveraineté',
-      'europe': 'Europe',
-      'ecology': 'Écologie',
-      'climate': 'Climat',
-      'energy': 'Énergie',
-      'agriculture': 'Agriculture',
-      'globalization': 'Mondialisation',
-      'international': 'International',
-      'defense': 'Défense',
-      'foreign_policy': 'Diplomatie',
-      'digital': 'Numérique',
-      'culture': 'Culture',
-      'education': 'Éducation',
-      'health': 'Santé',
-    };
-    return labels[id];
-  }
-
-  String _categoryHint(String id) {
-    const hints = {
-      'economy':
-          'Cette carte porte sur le rôle de l’État et l’organisation de l’économie.',
-      'taxation':
-          'Cette carte interroge le niveau et la répartition des impôts.',
-      'redistribution':
-          'Cette carte porte sur les inégalités et la redistribution.',
-      'work': 'Cette carte concerne le travail, l’emploi et les droits sociaux.',
-      'social_protection':
-          'Cette carte porte sur la protection sociale et la solidarité.',
-      'public_services':
-          'Cette carte touche au rôle et au financement des services publics.',
-      'enterprise':
-          'Cette carte interroge la place de l’entreprise et de l’initiative privée.',
-      'property': 'Cette carte porte sur la propriété et son encadrement.',
-      'market':
-          'Cette carte interroge la confiance accordée au marché.',
-      'civil_liberties':
-          'Cette carte porte sur les libertés individuelles.',
-      'society':
-          'Cette carte concerne les normes sociales et le vivre-ensemble.',
-      'family': 'Cette carte interroge le rôle de la famille dans la société.',
-      'religion_laicity':
-          'Cette carte porte sur la laïcité et la place du religieux.',
-      'immigration':
-          'Cette carte concerne l’accueil et les politiques migratoires.',
-      'integration':
-          'Cette carte porte sur l’intégration et la cohésion sociale.',
-      'security': 'Cette carte interroge l’équilibre entre sécurité et libertés.',
-      'justice': 'Cette carte porte sur la justice et la réponse pénale.',
-      'authority':
-          'Cette carte concerne l’autorité, l’ordre et la discipline.',
-      'institutions':
-          'Cette carte porte sur les institutions et leur fonctionnement.',
-      'democracy':
-          'Cette carte interroge la participation et le fonctionnement démocratique.',
-      'decentralization':
-          'Cette carte concerne les territoires et la décentralisation.',
-      'sovereignty':
-          'Cette carte porte sur la souveraineté nationale et les choix collectifs.',
-      'europe':
-          'Cette carte interroge la construction européenne et ses compétences.',
-      'ecology':
-          'Cette carte porte sur l’environnement et les priorités écologiques.',
-      'climate': 'Cette carte concerne le climat et la transition.',
-      'energy': 'Cette carte porte sur les choix énergétiques.',
-      'agriculture':
-          'Cette carte concerne l’agriculture, l’alimentation et les campagnes.',
-      'globalization':
-          'Cette carte interroge la mondialisation et ses contreparties.',
-      'international':
-          'Cette carte porte sur la place de la France dans le monde.',
-      'defense': 'Cette carte concerne la défense et la sécurité collective.',
-      'foreign_policy':
-          'Cette carte porte sur la diplomatie et la politique étrangère.',
-      'digital':
-          'Cette carte interroge le numérique, ses libertés et ses régulations.',
-      'culture': 'Cette carte porte sur la culture et son accès.',
-      'education':
-          'Cette carte concerne l’école, la formation et l’égalité des chances.',
-      'health': 'Cette carte porte sur la santé et l’accès aux soins.',
-    };
-    return hints[id] ??
-        'Réagis selon tes idées : il n’y a pas de bonne ou de mauvaise réponse.';
-  }
+  String _categoryHint(String id) =>
+      PoliticalDimension.tryFromId(id)?.contextHint ??
+      'Réagis selon tes idées : il n’y a pas de bonne ou de mauvaise réponse.';
 }
 
 class _CardContext extends StatelessWidget {
@@ -472,10 +428,10 @@ class _CardContext extends StatelessWidget {
           Text(
             'CONTEXTE',
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: AppColors.electricBlue,
-                  letterSpacing: 0.8,
-                  fontWeight: FontWeight.w700,
-                ),
+              color: AppColors.electricBlue,
+              letterSpacing: 0.8,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const SizedBox(height: 4),
           Text(
@@ -483,9 +439,9 @@ class _CardContext extends StatelessWidget {
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.deepBlue,
-                  height: 1.35,
-                ),
+              color: AppColors.deepBlue,
+              height: 1.35,
+            ),
           ),
           if (source != null && source!.trim().isNotEmpty) ...[
             const SizedBox(height: 6),
@@ -494,9 +450,9 @@ class _CardContext extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: AppColors.warmGray,
-                    fontStyle: FontStyle.italic,
-                  ),
+                color: AppColors.warmGray,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ],
         ],
@@ -533,11 +489,11 @@ class _Stamp extends StatelessWidget {
           label,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                color: color,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 1.6,
-                height: 1,
-              ),
+            color: color,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 1.6,
+            height: 1,
+          ),
         ),
       ),
     );

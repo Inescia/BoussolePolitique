@@ -38,10 +38,10 @@ void main() {
   });
 
   QuizBloc buildBloc() => QuizBloc(
-        questionRepository: questionRepository,
-        currentRepository: currentRepository,
-        progressRepository: progressRepository,
-      );
+    questionRepository: questionRepository,
+    currentRepository: currentRepository,
+    progressRepository: progressRepository,
+  );
 
   blocTest<QuizBloc, QuizState>(
     'démarre et expose une question',

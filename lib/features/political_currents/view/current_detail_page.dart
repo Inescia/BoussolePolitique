@@ -6,6 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../core/extensions/context_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/gradient_scaffold.dart';
+import '../../../core/widgets/left_right_spectrum.dart';
+import '../../../core/widgets/main_shell.dart';
 import '../../../core/widgets/page_header.dart';
 import '../../quiz/bloc/quiz_bloc.dart';
 import '../models/political_current.dart';
@@ -25,7 +27,12 @@ class CurrentDetailPage extends StatelessWidget {
       return GradientScaffold(
         child: SafeArea(
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(24, 16, 24, 40),
+            padding: EdgeInsets.fromLTRB(
+              24,
+              16,
+              24,
+              AppNavMetrics.clearance(context),
+            ),
             children: [
               const PageHeader(title: 'Courant'),
               const SizedBox(height: 24),
@@ -53,7 +60,12 @@ class CurrentDetailPage extends StatelessWidget {
     return GradientScaffold(
       child: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 40),
+          padding: EdgeInsets.fromLTRB(
+            24,
+            16,
+            24,
+            AppNavMetrics.clearance(context),
+          ),
           children: [
             PageHeader(title: 'Courant politique'),
             const SizedBox(height: 16),
@@ -143,6 +155,14 @@ class CurrentDetailPage extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            const SizedBox(height: 16),
+            LeftRightSpectrum(
+              position: current.hemicycleAngle,
+              accent: current.color,
+              title: 'Dans l’hémicycle',
+              footnote:
+                  'Repère pédagogique : où ce courant se situe le plus souvent sur l’axe gauche-droite.',
             ),
             const SizedBox(height: 16),
             _FancySection(

@@ -62,7 +62,10 @@ void main() {
     await tester.tap(find.text(currents.first.name));
     await tester.pump();
 
-    expect(find.text('Voir la fiche « ${currents.first.name} »'), findsOneWidget);
+    expect(
+      find.text('Voir la fiche « ${currents.first.name} »'),
+      findsOneWidget,
+    );
     await tester.tap(find.text('Voir la fiche « ${currents.first.name} »'));
     await tester.pump();
     expect(opened, currents.first.id);

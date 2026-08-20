@@ -80,10 +80,7 @@ class _MajorityRevealState extends State<MajorityReveal>
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          if (_showConfetti)
-            const Positioned.fill(
-              child: ConfettiBurst(),
-            ),
+          if (_showConfetti) const Positioned.fill(child: ConfettiBurst()),
           Column(
             children: [
               motionAware(

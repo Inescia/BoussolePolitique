@@ -10,9 +10,7 @@ void main() {
   final currents = loadPoliticalCurrents();
   const engine = ScoringEngine();
 
-  List<UserAnswer> answersFor(
-    Map<String, AnswerValue> byId,
-  ) {
+  List<UserAnswer> answersFor(Map<String, AnswerValue> byId) {
     return byId.entries
         .map(
           (e) => UserAnswer(
@@ -25,18 +23,14 @@ void main() {
   }
 
   Map<String, AnswerValue> allWith(AnswerValue value) => {
-        for (final q in questions) q.id: value,
-      };
+    for (final q in questions) q.id: value,
+  };
 
   Map<String, AnswerValue> biased({
     required bool Function(Question q) match,
     required AnswerValue hit,
     AnswerValue other = AnswerValue.skip,
-  }) =>
-      {
-        for (final q in questions)
-          q.id: match(q) ? hit : other,
-      };
+  }) => {for (final q in questions) q.id: match(q) ? hit : other};
 
   bool favors(Question q, String currentId) =>
       q.impacts.any((i) => i.currentId == currentId && i.weight > 0);
@@ -85,7 +79,10 @@ void main() {
       currents: currents,
     );
     final top = result.topCurrents.map((e) => e.currentId).take(3).toSet();
-    expect(top.contains('liberalisme_economique') || top.contains('liberalisme'), isTrue);
+    expect(
+      top.contains('liberalisme_economique') || top.contains('liberalisme'),
+      isTrue,
+    );
     expect(
       result.affinityFor('liberalisme_economique')!.affinityPercent,
       greaterThan(result.affinityFor('communisme')!.affinityPercent),
@@ -108,13 +105,11 @@ void main() {
     );
     final top = result.topCurrents.map((e) => e.currentId).toSet();
     expect(
-      top
-          .intersection({
-            'conservatisme',
-            'conservatisme_social',
-            'national_conservatisme',
-          })
-          .isNotEmpty,
+      top.intersection({
+        'conservatisme',
+        'conservatisme_social',
+        'national_conservatisme',
+      }).isNotEmpty,
       isTrue,
     );
   });
@@ -136,7 +131,9 @@ void main() {
     expect(top.contains('ecologie_politique'), isTrue);
     expect(
       result.affinityFor('ecologie_politique')!.affinityPercent,
-      greaterThan(result.affinityFor('liberalisme_economique')!.affinityPercent),
+      greaterThan(
+        result.affinityFor('liberalisme_economique')!.affinityPercent,
+      ),
     );
   });
 

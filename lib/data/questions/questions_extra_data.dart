@@ -223,8 +223,7 @@ List<Question> extraQuestions() => const [
   ),
   Question(
     id: 'q069',
-    text:
-        'La France devrait augmenter son aide publique au développement.',
+    text: 'La France devrait augmenter son aide publique au développement.',
     category: 'international',
     tags: ['aide', 'solidarite'],
     difficulty: QuestionDifficulty.standard,
@@ -876,8 +875,7 @@ List<Question> extraQuestions() => const [
   ),
   Question(
     id: 'q099',
-    text:
-        'Le vote blanc devrait être reconnu comme un suffrage exprimé.',
+    text: 'Le vote blanc devrait être reconnu comme un suffrage exprimé.',
     category: 'democracy',
     tags: ['vote', 'blanc'],
     difficulty: QuestionDifficulty.standard,

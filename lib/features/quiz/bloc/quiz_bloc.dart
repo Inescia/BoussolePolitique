@@ -21,12 +21,12 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     required ProgressRepository progressRepository,
     ScoringEngine scoringEngine = const ScoringEngine(),
     QuestionSelector questionSelector = const QuestionSelector(),
-  })  : _questionRepository = questionRepository,
-        _currentRepository = currentRepository,
-        _progressRepository = progressRepository,
-        _scoringEngine = scoringEngine,
-        _questionSelector = questionSelector,
-        super(const QuizState()) {
+  }) : _questionRepository = questionRepository,
+       _currentRepository = currentRepository,
+       _progressRepository = progressRepository,
+       _scoringEngine = scoringEngine,
+       _questionSelector = questionSelector,
+       super(const QuizState()) {
     on<QuizStarted>(_onStarted);
     on<AnswerSubmitted>(_onAnswered);
     on<QuestionSkipped>(_onSkipped);
@@ -45,12 +45,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
   final QuestionSelector _questionSelector;
 
   Future<void> _onStarted(QuizStarted event, Emitter<QuizState> emit) async {
-    emit(
-      state.copyWith(
-        status: QuizStatus.loading,
-        clearErrorMessage: true,
-      ),
-    );
+    emit(state.copyWith(status: QuizStatus.loading, clearErrorMessage: true));
     try {
       final questions = _questionRepository.getAll();
       var answers = <UserAnswer>[];
@@ -75,8 +70,9 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
               currents: _currentRepository.getAll(),
             );
 
-      final answeredCount =
-          answers.where((a) => a.value != AnswerValue.skip).length;
+      final answeredCount = answers
+          .where((a) => a.value != AnswerValue.skip)
+          .length;
       final exhausted = completed || next == null;
 
       emit(
@@ -86,8 +82,8 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
           answers: answers,
           currentQuestion: next,
           result: result,
-          showPartialHint: answeredCount >=
-                  AppConstants.minAnswersForPartialResult &&
+          showPartialHint:
+              answeredCount >= AppConstants.minAnswersForPartialResult &&
               !exhausted &&
               !state.partialHintDismissed,
           clearCurrentQuestion: next == null,
@@ -122,7 +118,9 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     final question = state.currentQuestion;
     if (question == null || state.status != QuizStatus.active) return;
 
-    emit(state.copyWith(status: QuizStatus.processing, clearErrorMessage: true));
+    emit(
+      state.copyWith(status: QuizStatus.processing, clearErrorMessage: true),
+    );
 
     final answer = UserAnswer(
       questionId: question.id,
@@ -142,8 +140,9 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       currents: _currentRepository.getAll(),
     );
 
-    final answeredCount =
-        answers.where((a) => a.value != AnswerValue.skip).length;
+    final answeredCount = answers
+        .where((a) => a.value != AnswerValue.skip)
+        .length;
     final completed = next == null;
 
     try {
@@ -161,7 +160,8 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       return;
     }
 
-    final showHint = answeredCount >= AppConstants.minAnswersForPartialResult &&
+    final showHint =
+        answeredCount >= AppConstants.minAnswersForPartialResult &&
         !completed &&
         !state.partialHintDismissed &&
         answeredCount == AppConstants.minAnswersForPartialResult;
@@ -228,16 +228,8 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     );
   }
 
-  void _onHintDismissed(
-    PartialHintDismissed event,
-    Emitter<QuizState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        showPartialHint: false,
-        partialHintDismissed: true,
-      ),
-    );
+  void _onHintDismissed(PartialHintDismissed event, Emitter<QuizState> emit) {
+    emit(state.copyWith(showPartialHint: false, partialHintDismissed: true));
   }
 
   Future<void> _onRestarted(
@@ -279,8 +271,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     final exhausted = state.currentQuestion == null;
     emit(
       state.copyWith(
-        status:
-            exhausted ? QuizStatus.completed : QuizStatus.viewingResults,
+        status: exhausted ? QuizStatus.completed : QuizStatus.viewingResults,
         showPartialHint: false,
       ),
     );

@@ -8,12 +8,11 @@ import '../../../core/extensions/context_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/motion.dart';
 import '../../../core/widgets/boussole_logo.dart';
-import '../../../core/widgets/content_chrome.dart';
 import '../../../core/widgets/gradient_scaffold.dart';
+import '../../../core/widgets/main_shell.dart';
 import '../../../core/widgets/page_header.dart';
-import '../../political_currents/repositories/political_current_repository.dart';
 import '../../quiz/bloc/quiz_bloc.dart';
-import '../../quiz/repositories/question_repository.dart';
+import '../../quiz/widgets/catalog_stats_strip.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -27,7 +26,12 @@ class HomePage extends StatelessWidget {
             return CustomScrollView(
               slivers: [
                 SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(24, 16, 24, 88),
+                  padding: EdgeInsets.fromLTRB(
+                    24,
+                    16,
+                    24,
+                    AppNavMetrics.clearance(context),
+                  ),
                   sliver: SliverList.list(
                     children: [
                       const PageHeader(
@@ -36,6 +40,8 @@ class HomePage extends StatelessWidget {
                         leading: BoussoleLogo(size: 48),
                         showBack: false,
                       ),
+                      const SizedBox(height: 14),
+                      CatalogStatsStrip(state: state),
                       const SizedBox(height: 20),
                       motionAware(
                         context: context,
@@ -48,11 +54,9 @@ class HomePage extends StatelessWidget {
                               curve: Curves.easeOutBack,
                             ),
                       ),
-                      const SizedBox(height: 14),
-                      _HomeStats(state: state),
                       const SizedBox(height: 20),
                       _CardsBlock(state: state),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 14),
                       _ProfileBlock(state: state),
                     ],
                   ),
@@ -112,45 +116,14 @@ class _PresentationCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            'Glisse, réagis, et vois ce qui se dessine.\n\n'
-            '🧠 L’idée, c’est de partir de tes opinions et affinités pour identifier les courants de pensée auxquels elles se rapprochent, sans te mettre dans une case.\n\n'
-            '💡 Ça permet de mettre des mots sur ce que tu penses, comprendre d’où viennent tes idées et avoir les clés pour mieux les expliquersi besoin.',
+            '🧠 L’idée, c’est de partir de tes opinions et affinités pour identifier les courants de pensée auxquels elles se rapprochent.\n\n'
+            '💡 Ça permet de mettre des mots sur ce que tu penses, comprendre d’où viennent tes idées et avoir les clés pour mieux les expliquer si besoin.',
             style: context.textTheme.bodyMedium?.copyWith(
               color: Colors.white.withValues(alpha: 0.85),
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class _HomeStats extends StatelessWidget {
-  const _HomeStats({required this.state});
-
-  final QuizState state;
-
-  @override
-  Widget build(BuildContext context) {
-    final totalCards = state.questions.isNotEmpty
-        ? state.questions.length
-        : context.read<QuestionRepository>().length;
-    final currentCount = context
-        .read<PoliticalCurrentRepository>()
-        .getAll()
-        .length;
-
-    return InsightStrip(
-      items: [
-        (Icons.style_rounded, 'Cartes', AppColors.electricBlue, '$totalCards'),
-        (Icons.hub_outlined, 'Courants', AppColors.coral, '$currentCount'),
-        (
-          Icons.question_answer_rounded,
-          'Réponses',
-          AppColors.success,
-          '${state.answeredCount}',
-        ),
-      ],
     );
   }
 }
@@ -212,9 +185,9 @@ class _ProfileBlock extends StatelessWidget {
         );
 
     return _HomeTile(
-      icon: Icons.insights_rounded,
+      icon: Icons.badge_rounded,
       color: AppColors.coral,
-      title: ready ? 'Ton profil d’opinions' : 'Profil pas encore disponible',
+      title: ready ? 'Ton profil d’opinions' : 'Profil indisponible',
       subtitle: ready
           ? state.result?.completeness.label ?? 'Profil en cours'
           : remaining == 0
@@ -282,7 +255,7 @@ class _HomeTile extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(trailingIcon, color: AppColors.warmGray),
+            Icon(trailingIcon, color: AppColors.warmGray, size: 24),
           ],
         ),
       ),

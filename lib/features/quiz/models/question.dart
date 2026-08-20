@@ -28,14 +28,11 @@ class QuestionImpact extends Equatable {
   final double weight;
 
   factory QuestionImpact.fromJson(Map<String, dynamic> json) => QuestionImpact(
-        currentId: json['currentId'] as String,
-        weight: (json['weight'] as num).toDouble(),
-      );
+    currentId: json['currentId'] as String,
+    weight: (json['weight'] as num).toDouble(),
+  );
 
-  Map<String, dynamic> toJson() => {
-        'currentId': currentId,
-        'weight': weight,
-      };
+  Map<String, dynamic> toJson() => {'currentId': currentId, 'weight': weight};
 
   @override
   List<Object?> get props => [currentId, weight];
@@ -65,30 +62,28 @@ class Question extends Equatable {
   final String? explanation;
 
   factory Question.fromJson(Map<String, dynamic> json) => Question(
-        id: json['id'] as String,
-        text: json['text'] as String,
-        category: json['category'] as String,
-        tags: (json['tags'] as List<dynamic>).cast<String>(),
-        difficulty: QuestionDifficulty.values.byName(
-          json['difficulty'] as String,
-        ),
-        impacts: (json['impacts'] as List<dynamic>)
-            .map((e) => QuestionImpact.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        source: json['source'] as String?,
-        explanation: json['explanation'] as String?,
-      );
+    id: json['id'] as String,
+    text: json['text'] as String,
+    category: json['category'] as String,
+    tags: (json['tags'] as List<dynamic>).cast<String>(),
+    difficulty: QuestionDifficulty.values.byName(json['difficulty'] as String),
+    impacts: (json['impacts'] as List<dynamic>)
+        .map((e) => QuestionImpact.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    source: json['source'] as String?,
+    explanation: json['explanation'] as String?,
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'text': text,
-        'category': category,
-        'tags': tags,
-        'difficulty': difficulty.name,
-        'impacts': impacts.map((e) => e.toJson()).toList(),
-        'source': source,
-        'explanation': explanation,
-      };
+    'id': id,
+    'text': text,
+    'category': category,
+    'tags': tags,
+    'difficulty': difficulty.name,
+    'impacts': impacts.map((e) => e.toJson()).toList(),
+    'source': source,
+    'explanation': explanation,
+  };
 
   @override
   List<Object?> get props => [id, text, category, tags, difficulty, impacts];
@@ -106,16 +101,16 @@ class UserAnswer extends Equatable {
   final DateTime answeredAt;
 
   factory UserAnswer.fromJson(Map<String, dynamic> json) => UserAnswer(
-        questionId: json['questionId'] as String,
-        value: AnswerValue.values.byName(json['value'] as String),
-        answeredAt: DateTime.parse(json['answeredAt'] as String),
-      );
+    questionId: json['questionId'] as String,
+    value: AnswerValue.values.byName(json['value'] as String),
+    answeredAt: DateTime.parse(json['answeredAt'] as String),
+  );
 
   Map<String, dynamic> toJson() => {
-        'questionId': questionId,
-        'value': value.name,
-        'answeredAt': answeredAt.toIso8601String(),
-      };
+    'questionId': questionId,
+    'value': value.name,
+    'answeredAt': answeredAt.toIso8601String(),
+  };
 
   @override
   List<Object?> get props => [questionId, value, answeredAt];

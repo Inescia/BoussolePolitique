@@ -72,27 +72,28 @@ GoRouter createRouter({required bool onboardingDone}) {
       GoRoute(
         path: '/results',
         parentNavigatorKey: rootNavigatorKey,
-        builder: (context, state) => const ResultsPage(),
+        builder: (context, state) =>
+            const AppNavOverlay(selectedIndex: 1, child: ResultsPage()),
       ),
       GoRoute(
         path: '/about',
         parentNavigatorKey: rootNavigatorKey,
-        builder: (context, state) => const AboutPage(),
+        builder: (context, state) =>
+            const AppNavOverlay(selectedIndex: 2, child: AboutPage()),
       ),
-      GoRoute(
-        path: '/methodology',
-        redirect: (context, state) => '/about',
-      ),
+      GoRoute(path: '/methodology', redirect: (context, state) => '/about'),
       GoRoute(
         path: '/privacy',
         parentNavigatorKey: rootNavigatorKey,
-        builder: (context, state) => const PrivacyPage(),
+        builder: (context, state) =>
+            const AppNavOverlay(selectedIndex: 2, child: PrivacyPage()),
       ),
       GoRoute(
         path: '/current/:id',
         parentNavigatorKey: rootNavigatorKey,
-        builder: (context, state) => CurrentDetailPage(
-          currentId: state.pathParameters['id']!,
+        builder: (context, state) => AppNavOverlay(
+          selectedIndex: 0,
+          child: CurrentDetailPage(currentId: state.pathParameters['id']!),
         ),
       ),
     ],
@@ -105,28 +106,31 @@ GoRouter createRouter({required bool onboardingDone}) {
       if (state.uri.path == '/') return '/home';
       return null;
     },
-    errorBuilder: (context, state) => GradientScaffold(
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Page introuvable',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Cette page n’existe pas ou a été déplacée.',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 24),
-              FilledButton(
-                onPressed: () => context.go('/home'),
-                child: const Text('Retour à l’accueil'),
-              ),
-            ],
+    errorBuilder: (context, state) => AppNavOverlay(
+      selectedIndex: 1,
+      child: GradientScaffold(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Page introuvable',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Cette page n’existe pas ou a été déplacée.',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 24),
+                FilledButton(
+                  onPressed: () => context.go('/home'),
+                  child: const Text('Retour à l’accueil'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

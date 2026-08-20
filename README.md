@@ -32,7 +32,7 @@ Application mobile **Flutter** éducative et **apartisane** pour explorer ses af
 | Backend | Aucun en V1 |
 | État global | BLoC (`QuizBloc`, `SettingsBloc`) |
 | Navigation | `go_router` avec shell à 3 onglets |
-| Monétisation | AdMob (bannière quiz + interstitiel tous les 25 réponses) |
+| Monétisation | AdMob (bannière quiz + interstitiel tous les 20 réponses) |
 
 ### Parcours utilisateur
 
@@ -260,7 +260,7 @@ initial → loading → active ⇄ processing → completed
 | Format | Emplacement | Fréquence |
 |--------|-------------|-----------|
 | Bannière | Bas du quiz | Permanente sur `/quiz` |
-| Interstitiel | Plein écran | Toutes les **25** réponses |
+| Interstitiel | Plein écran | Toutes les **20** réponses |
 | Cooldown | — | 2 min |
 
 En dev : `USE_TEST_ADS=true` (défaut) via `--dart-define` dans `lib/core/ads/ad_config.dart`.
@@ -287,6 +287,8 @@ flutter test
 - `test/scoring/scoring_engine_test.dart`
 - `test/quiz/quiz_bloc_test.dart`
 - `test/widgets/quiz_widgets_test.dart`
+- `test/widgets/left_right_spectrum_test.dart`
+- `test/widgets/affinity_constellation_test.dart`
 
 ---
 

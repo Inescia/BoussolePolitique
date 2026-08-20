@@ -4,20 +4,39 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "communisme",
     name: "Communisme",
-    shortDescription: "Courant visant une société sans classes fondée sur la propriété collective des moyens de production.",
-    longDescription: "Le communisme désigne un ensemble de pensées et de mouvements qui critiquent le capitalisme et aspirent à une organisation sociale fondée sur la propriété collective. Dans l'histoire, il a pris des formes très diverses, de la théorie à des expériences d'État. En France, il a notamment influencé le mouvement ouvrier et certaines traditions syndicales.",
-    historicalOrigins: "Issu des débats du XIXe siècle (Marx, Engels) et des mouvements ouvriers européens, le communisme s'est structuré au XXe siècle autour de partis et d'expériences historiques contrastées.",
-    economicPosition: "Priorité à la planification et à la propriété collective ou sociale des grands moyens de production, avec une critique forte de l'accumulation capitaliste.",
-    socialPosition: "Accent sur l'égalité économique et la solidarité de classe ; méfiance envers les hiérarchies sociales liées à la propriété.",
-    institutionalPosition: "Selon les traditions, peut aller d'une phase de pouvoir d'État fort à des perspectives plus auto-gestionnaires.",
-    ecologicalPosition: "Souvent liée à une critique du productivisme capitaliste ; les positions écologiques varient selon les courants internes.",
-    europeanPosition: "Historiquement critique envers certaines formes d'intégration libérale européenne ; les positions contemporaines sont diverses.",
-    civilLibertiesPosition: "Tension fréquente entre émancipation collective et libertés individuelles selon les interprétations.",
-    internalNuances: "Marxismes, communismes réformateurs, traditions plus autoritaires ou plus libertaires coexistent dans l'histoire du courant.",
+    shortDescription:
+        "Courant visant une société sans classes fondée sur la propriété collective des moyens de production.",
+    longDescription:
+        "Le communisme désigne un ensemble de pensées et de mouvements qui critiquent le capitalisme et aspirent à une organisation sociale fondée sur la propriété collective. Dans l'histoire, il a pris des formes très diverses, de la théorie à des expériences d'État. En France, il a notamment influencé le mouvement ouvrier et certaines traditions syndicales.",
+    historicalOrigins:
+        "Issu des débats du XIXe siècle (Marx, Engels) et des mouvements ouvriers européens, le communisme s'est structuré au XXe siècle autour de partis et d'expériences historiques contrastées.",
+    economicPosition:
+        "Priorité à la planification et à la propriété collective ou sociale des grands moyens de production, avec une critique forte de l'accumulation capitaliste.",
+    socialPosition:
+        "Accent sur l'égalité économique et la solidarité de classe ; méfiance envers les hiérarchies sociales liées à la propriété.",
+    institutionalPosition:
+        "Selon les traditions, peut aller d'une phase de pouvoir d'État fort à des perspectives plus auto-gestionnaires.",
+    ecologicalPosition:
+        "Souvent liée à une critique du productivisme capitaliste ; les positions écologiques varient selon les courants internes.",
+    europeanPosition:
+        "Historiquement critique envers certaines formes d'intégration libérale européenne ; les positions contemporaines sont diverses.",
+    civilLibertiesPosition:
+        "Tension fréquente entre émancipation collective et libertés individuelles selon les interprétations.",
+    internalNuances:
+        "Marxismes, communismes réformateurs, traditions plus autoritaires ou plus libertaires coexistent dans l'histoire du courant.",
     relatedCurrents: const ["socialisme", "anticapitalisme", "anarchisme"],
-    opposedCurrents: const ["liberalisme_economique", "libertarianisme", "conservatisme"],
+    opposedCurrents: const [
+      "liberalisme_economique",
+      "libertarianisme",
+      "conservatisme",
+    ],
     examplesInFrance: [
-      FranceExample(label: "Parti communiste français (PCF)", context: "A historiquement défendu des idées proches de ce courant dans le débat français.", period: "XXe–XXIe s."),
+      FranceExample(
+        label: "Parti communiste français (PCF)",
+        context:
+            "A historiquement défendu des idées proches de ce courant dans le débat français.",
+        period: "XXe–XXIe s.",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -38,20 +57,39 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "socialisme",
     name: "Socialisme",
-    shortDescription: "Famille d'idées favorables à une plus grande justice sociale et à une régulation forte de l'économie.",
-    longDescription: "Le socialisme regroupe des traditions qui cherchent à réduire les inégalités et à donner un rôle important à la collectivité dans l'organisation économique. Il peut être plus ou moins réformateur, démocratique ou radical selon les époques et les auteurs.",
-    historicalOrigins: "Émergence au XIXe siècle avec le mouvement ouvrier ; en France, longue tradition républicaine et parlementaire aux côtés de courants plus révolutionnaires.",
-    economicPosition: "Régulation, services publics, redistribution ; place variable laissée au marché.",
-    socialPosition: "Égalité des chances et solidarité ; défense des droits sociaux.",
-    institutionalPosition: "Souvent attaché à la démocratie représentative et à l'État social.",
-    ecologicalPosition: "De plus en plus attentif aux limites écologiques, avec des sensibilités variables.",
-    europeanPosition: "Positions historiquement partagées entre construction sociale européenne et critiques de l'orientation libérale.",
-    civilLibertiesPosition: "Combine souvent droits sociaux et libertés civiles, avec des priorités différentes selon les familles.",
-    internalNuances: "Socialisme démocratique, socialisme plus radical, traditions ouvrières et intellectuelles.",
+    shortDescription:
+        "Famille d'idées favorables à une plus grande justice sociale et à une régulation forte de l'économie.",
+    longDescription:
+        "Le socialisme regroupe des traditions qui cherchent à réduire les inégalités et à donner un rôle important à la collectivité dans l'organisation économique. Il peut être plus ou moins réformateur, démocratique ou radical selon les époques et les auteurs.",
+    historicalOrigins:
+        "Émergence au XIXe siècle avec le mouvement ouvrier ; en France, longue tradition républicaine et parlementaire aux côtés de courants plus révolutionnaires.",
+    economicPosition:
+        "Régulation, services publics, redistribution ; place variable laissée au marché.",
+    socialPosition:
+        "Égalité des chances et solidarité ; défense des droits sociaux.",
+    institutionalPosition:
+        "Souvent attaché à la démocratie représentative et à l'État social.",
+    ecologicalPosition:
+        "De plus en plus attentif aux limites écologiques, avec des sensibilités variables.",
+    europeanPosition:
+        "Positions historiquement partagées entre construction sociale européenne et critiques de l'orientation libérale.",
+    civilLibertiesPosition:
+        "Combine souvent droits sociaux et libertés civiles, avec des priorités différentes selon les familles.",
+    internalNuances:
+        "Socialisme démocratique, socialisme plus radical, traditions ouvrières et intellectuelles.",
     relatedCurrents: const ["social_democratie", "communisme", "progressisme"],
-    opposedCurrents: const ["liberalisme_economique", "libertarianisme", "national_conservatisme"],
+    opposedCurrents: const [
+      "liberalisme_economique",
+      "libertarianisme",
+      "national_conservatisme",
+    ],
     examplesInFrance: [
-      FranceExample(label: "Parti socialiste (PS)", context: "A porté à différentes périodes des idées proches de ce courant, sans s'y réduire.", period: "Ve République"),
+      FranceExample(
+        label: "Parti socialiste (PS)",
+        context:
+            "A porté à différentes périodes des idées proches de ce courant, sans s'y réduire.",
+        period: "Ve République",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -72,20 +110,38 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "social_democratie",
     name: "Social-démocratie",
-    shortDescription: "Recherche d'un équilibre entre économie de marché et protection sociale étendue.",
-    longDescription: "La social-démocratie défend une économie mixte : le marché produit de la richesse, tandis que l'État redistribue et protège. Elle s'appuie sur la négociation collective, les services publics et des droits sociaux stables.",
-    historicalOrigins: "Structurée surtout en Europe du Nord et en Europe de l'Ouest au XXe siècle, en lien avec les syndicats et les partis réformateurs.",
+    shortDescription:
+        "Recherche d'un équilibre entre économie de marché et protection sociale étendue.",
+    longDescription:
+        "La social-démocratie défend une économie mixte : le marché produit de la richesse, tandis que l'État redistribue et protège. Elle s'appuie sur la négociation collective, les services publics et des droits sociaux stables.",
+    historicalOrigins:
+        "Structurée surtout en Europe du Nord et en Europe de l'Ouest au XXe siècle, en lien avec les syndicats et les partis réformateurs.",
     economicPosition: "Marché régulé, fiscalité progressive, État providence.",
-    socialPosition: "Cohésion sociale, réduction des inégalités sans abolir la propriété privée.",
-    institutionalPosition: "Démocratie parlementaire, partenaires sociaux, institutions stables.",
-    ecologicalPosition: "Transition écologique souvent conçue par la régulation et l'investissement public.",
-    europeanPosition: "Généralement favorable à une Europe sociale et régulatrice.",
-    civilLibertiesPosition: "Attachée aux libertés démocratiques et aux droits sociaux.",
-    internalNuances: "Versions plus centristes ou plus à gauche selon les pays et les périodes.",
+    socialPosition:
+        "Cohésion sociale, réduction des inégalités sans abolir la propriété privée.",
+    institutionalPosition:
+        "Démocratie parlementaire, partenaires sociaux, institutions stables.",
+    ecologicalPosition:
+        "Transition écologique souvent conçue par la régulation et l'investissement public.",
+    europeanPosition:
+        "Généralement favorable à une Europe sociale et régulatrice.",
+    civilLibertiesPosition:
+        "Attachée aux libertés démocratiques et aux droits sociaux.",
+    internalNuances:
+        "Versions plus centristes ou plus à gauche selon les pays et les périodes.",
     relatedCurrents: const ["socialisme", "progressisme", "ecologie_politique"],
-    opposedCurrents: const ["libertarianisme", "nationalisme", "anticapitalisme"],
+    opposedCurrents: const [
+      "libertarianisme",
+      "nationalisme",
+      "anticapitalisme",
+    ],
     examplesInFrance: [
-      FranceExample(label: "Courants sociaux-démocrates européens", context: "Des partis sociaux-démocrates ont défendu des politiques proches, dans des contextes nationaux différents.", period: "Après 1945"),
+      FranceExample(
+        label: "Courants sociaux-démocrates européens",
+        context:
+            "Des partis sociaux-démocrates ont défendu des politiques proches, dans des contextes nationaux différents.",
+        period: "Après 1945",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -106,20 +162,39 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "ecologie_politique",
     name: "Écologie politique",
-    shortDescription: "Place les limites planétaires et le vivant au centre des choix politiques.",
-    longDescription: "L'écologie politique considère que les questions environnementales ne sont pas secondaires : elles transforment l'économie, les modes de vie et les institutions. Elle peut croiser des sensibilités sociales, libérales ou plus radicales.",
-    historicalOrigins: "Montée en puissance à partir des années 1970, avec des mouvements citoyens, scientifiques et partisans.",
-    economicPosition: "Critique du productivisme ; intérêt pour sobriété, monnaies locales, régulation verte, parfois décroissance.",
-    socialPosition: "Justice environnementale, attention aux inégalités face aux risques écologiques.",
-    institutionalPosition: "Favorable à la participation, au local et parfois à de nouvelles institutions climatiques.",
-    ecologicalPosition: "Priorité structurante : climat, biodiversité, énergie, agriculture.",
-    europeanPosition: "Souvent favorable à une coordination européenne environnementale, avec des nuances souverainistes possibles.",
-    civilLibertiesPosition: "Défense fréquente des libertés civiles, avec débat sur les contraintes collectives écologiques.",
-    internalNuances: "Écologie réformiste, écologie sociale, écologie plus radicale.",
-    relatedCurrents: const ["progressisme", "anticapitalisme", "social_democratie"],
+    shortDescription:
+        "Place les limites planétaires et le vivant au centre des choix politiques.",
+    longDescription:
+        "L'écologie politique considère que les questions environnementales ne sont pas secondaires : elles transforment l'économie, les modes de vie et les institutions. Elle peut croiser des sensibilités sociales, libérales ou plus radicales.",
+    historicalOrigins:
+        "Montée en puissance à partir des années 1970, avec des mouvements citoyens, scientifiques et partisans.",
+    economicPosition:
+        "Critique du productivisme ; intérêt pour sobriété, monnaies locales, régulation verte, parfois décroissance.",
+    socialPosition:
+        "Justice environnementale, attention aux inégalités face aux risques écologiques.",
+    institutionalPosition:
+        "Favorable à la participation, au local et parfois à de nouvelles institutions climatiques.",
+    ecologicalPosition:
+        "Priorité structurante : climat, biodiversité, énergie, agriculture.",
+    europeanPosition:
+        "Souvent favorable à une coordination européenne environnementale, avec des nuances souverainistes possibles.",
+    civilLibertiesPosition:
+        "Défense fréquente des libertés civiles, avec débat sur les contraintes collectives écologiques.",
+    internalNuances:
+        "Écologie réformiste, écologie sociale, écologie plus radicale.",
+    relatedCurrents: const [
+      "progressisme",
+      "anticapitalisme",
+      "social_democratie",
+    ],
     opposedCurrents: const ["liberalisme_economique", "national_conservatisme"],
     examplesInFrance: [
-      FranceExample(label: "Mouvements écologistes français", context: "Des formations et associations ont porté des idées proches, de façon partielle et évolutive.", period: "Depuis les années 1970"),
+      FranceExample(
+        label: "Mouvements écologistes français",
+        context:
+            "Des formations et associations ont porté des idées proches, de façon partielle et évolutive.",
+        period: "Depuis les années 1970",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -140,20 +215,37 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "progressisme",
     name: "Progressisme",
-    shortDescription: "Favorise l'extension des droits, l'ouverture sociale et les réformes orientées vers l'avenir.",
-    longDescription: "Le progressisme désigne une sensibilité qui fait confiance à la réforme, à la science et à l'extension des droits individuels et sociaux. Ce n'est pas un parti unique, mais une orientation présente dans plusieurs familles.",
-    historicalOrigins: "Héritier des Lumières et des mouvements de droits civiques, avec des reformulations contemporaines autour de l'égalité et de la diversité.",
-    economicPosition: "Souvent compatible avec une économie de marché régulée et l'innovation.",
+    shortDescription:
+        "Favorise l'extension des droits, l'ouverture sociale et les réformes orientées vers l'avenir.",
+    longDescription:
+        "Le progressisme désigne une sensibilité qui fait confiance à la réforme, à la science et à l'extension des droits individuels et sociaux. Ce n'est pas un parti unique, mais une orientation présente dans plusieurs familles.",
+    historicalOrigins:
+        "Héritier des Lumières et des mouvements de droits civiques, avec des reformulations contemporaines autour de l'égalité et de la diversité.",
+    economicPosition:
+        "Souvent compatible avec une économie de marché régulée et l'innovation.",
     socialPosition: "Égalité, inclusion, lutte contre les discriminations.",
-    institutionalPosition: "Réforme des institutions pour plus de représentation et de transparence.",
-    ecologicalPosition: "Généralement favorable à des politiques climatiques ambitieuses.",
+    institutionalPosition:
+        "Réforme des institutions pour plus de représentation et de transparence.",
+    ecologicalPosition:
+        "Généralement favorable à des politiques climatiques ambitieuses.",
     europeanPosition: "Souvent pro-européen, avec des exceptions.",
-    civilLibertiesPosition: "Priorité forte aux libertés individuelles et aux droits civiques.",
-    internalNuances: "Progressisme social-libéral, progressisme plus social, progressisme culturel.",
-    relatedCurrents: const ["liberalisme_politique", "social_democratie", "ecologie_politique"],
+    civilLibertiesPosition:
+        "Priorité forte aux libertés individuelles et aux droits civiques.",
+    internalNuances:
+        "Progressisme social-libéral, progressisme plus social, progressisme culturel.",
+    relatedCurrents: const [
+      "liberalisme_politique",
+      "social_democratie",
+      "ecologie_politique",
+    ],
     opposedCurrents: const ["conservatisme_social", "national_conservatisme"],
     examplesInFrance: [
-      FranceExample(label: "Sensibilités progressistes dans plusieurs partis", context: "Des personnalités et courants de sensibilités différentes ont défendu des idées proches selon les périodes.", period: "XXIe s."),
+      FranceExample(
+        label: "Sensibilités progressistes dans plusieurs partis",
+        context:
+            "Des personnalités et courants de sensibilités différentes ont défendu des idées proches selon les périodes.",
+        period: "XXIe s.",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -174,20 +266,37 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "radicalisme",
     name: "Radicalisme",
-    shortDescription: "Tradition républicaine attachée à la laïcité, aux libertés civiles et à la réforme.",
-    longDescription: "Le radicalisme français, au sens historique, désigne une tradition républicaine réformatrice : défense de la laïcité, de l'école publique et des libertés civiles, avec une méfiance envers les dogmes et les privilèges.",
-    historicalOrigins: "Important sous la IIIe République ; distinct du sens courant de « radical » comme extrême.",
-    economicPosition: "Historiquement favorable à la petite propriété et à un État réformateur plutôt qu'à la collectivisation.",
+    shortDescription:
+        "Tradition républicaine attachée à la laïcité, aux libertés civiles et à la réforme.",
+    longDescription:
+        "Le radicalisme français, au sens historique, désigne une tradition républicaine réformatrice : défense de la laïcité, de l'école publique et des libertés civiles, avec une méfiance envers les dogmes et les privilèges.",
+    historicalOrigins:
+        "Important sous la IIIe République ; distinct du sens courant de « radical » comme extrême.",
+    economicPosition:
+        "Historiquement favorable à la petite propriété et à un État réformateur plutôt qu'à la collectivisation.",
     socialPosition: "Individualisme républicain, mérite, instruction.",
-    institutionalPosition: "République parlementaire, séparation des pouvoirs, laïcité.",
-    ecologicalPosition: "Non centrale historiquement ; positions contemporaines variables.",
+    institutionalPosition:
+        "République parlementaire, séparation des pouvoirs, laïcité.",
+    ecologicalPosition:
+        "Non centrale historiquement ; positions contemporaines variables.",
     europeanPosition: "Positions variables selon les époques.",
-    civilLibertiesPosition: "Fort attachement aux libertés de conscience et d'expression.",
-    internalNuances: "Radicalisme historique ≠ radicalité extrême ; le mot prête parfois à confusion.",
-    relatedCurrents: const ["republicanisme", "liberalisme_politique", "progressisme"],
+    civilLibertiesPosition:
+        "Fort attachement aux libertés de conscience et d'expression.",
+    internalNuances:
+        "Radicalisme historique ≠ radicalité extrême ; le mot prête parfois à confusion.",
+    relatedCurrents: const [
+      "republicanisme",
+      "liberalisme_politique",
+      "progressisme",
+    ],
     opposedCurrents: const ["conservatisme_social", "nationalisme"],
     examplesInFrance: [
-      FranceExample(label: "Parti radical (historique)", context: "A historiquement incarné certaines idées proches de cette tradition républicaine.", period: "IIIe–IVe République"),
+      FranceExample(
+        label: "Parti radical (historique)",
+        context:
+            "A historiquement incarné certaines idées proches de cette tradition républicaine.",
+        period: "IIIe–IVe République",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -208,20 +317,38 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "liberalisme",
     name: "Libéralisme",
-    shortDescription: "Défend les libertés individuelles, l'État de droit et une économie ouverte, avec des dosages variables.",
-    longDescription: "Le libéralisme est une grande famille : politique (droits, État de droit), économique (marché, initiative), parfois social. En France, il coexiste avec une tradition d'État fort, ce qui crée des formes spécifiques.",
-    historicalOrigins: "Racines dans les Lumières et le XIXe siècle ; recompositions au XXe siècle (libéralisme classique, social, néolibéral).",
-    economicPosition: "Confiance dans le marché, propriété privée, concurrence ; degré de régulation variable.",
-    socialPosition: "Autonomie de l'individu ; débat interne sur l'ampleur de la protection sociale.",
-    institutionalPosition: "État de droit, séparation des pouvoirs, limitation de l'arbitraire.",
-    ecologicalPosition: "Souvent via instruments de marché (prix du carbone) plutôt que planification.",
-    europeanPosition: "Souvent favorable au marché unique et à l'État de droit européen.",
+    shortDescription:
+        "Défend les libertés individuelles, l'État de droit et une économie ouverte, avec des dosages variables.",
+    longDescription:
+        "Le libéralisme est une grande famille : politique (droits, État de droit), économique (marché, initiative), parfois social. En France, il coexiste avec une tradition d'État fort, ce qui crée des formes spécifiques.",
+    historicalOrigins:
+        "Racines dans les Lumières et le XIXe siècle ; recompositions au XXe siècle (libéralisme classique, social, néolibéral).",
+    economicPosition:
+        "Confiance dans le marché, propriété privée, concurrence ; degré de régulation variable.",
+    socialPosition:
+        "Autonomie de l'individu ; débat interne sur l'ampleur de la protection sociale.",
+    institutionalPosition:
+        "État de droit, séparation des pouvoirs, limitation de l'arbitraire.",
+    ecologicalPosition:
+        "Souvent via instruments de marché (prix du carbone) plutôt que planification.",
+    europeanPosition:
+        "Souvent favorable au marché unique et à l'État de droit européen.",
     civilLibertiesPosition: "Cœur doctrinal : libertés civiles et économiques.",
-    internalNuances: "Libéralisme politique et économique ne coïncident pas toujours.",
-    relatedCurrents: const ["liberalisme_economique", "liberalisme_politique", "libertarianisme"],
+    internalNuances:
+        "Libéralisme politique et économique ne coïncident pas toujours.",
+    relatedCurrents: const [
+      "liberalisme_economique",
+      "liberalisme_politique",
+      "libertarianisme",
+    ],
     opposedCurrents: const ["communisme", "anticapitalisme", "nationalisme"],
     examplesInFrance: [
-      FranceExample(label: "Courants libéraux français", context: "Des clubs, partis et personnalités ont défendu des idées proches à différentes périodes.", period: "XIXe–XXIe s."),
+      FranceExample(
+        label: "Courants libéraux français",
+        context:
+            "Des clubs, partis et personnalités ont défendu des idées proches à différentes périodes.",
+        period: "XIXe–XXIe s.",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -242,20 +369,33 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "liberalisme_economique",
     name: "Libéralisme économique",
-    shortDescription: "Met l'accent sur le marché, la concurrence et la limitation de l'intervention économique de l'État.",
-    longDescription: "Le libéralisme économique insiste sur l'efficacité du marché, la propriété privée et la liberté d'entreprendre. Ses partisans discutent du niveau acceptable de régulation, de fiscalité et de protection sociale.",
-    historicalOrigins: "École classique, ordolibéralisme, débats contemporains sur la dérégulation et la mondialisation.",
-    economicPosition: "Priorité au marché ; critique des monopoles publics et des normes jugées excessives.",
-    socialPosition: "Responsabilité individuelle ; filets sociaux parfois acceptés de façon ciblée.",
-    institutionalPosition: "État garant des règles du jeu plutôt que producteur.",
-    ecologicalPosition: "Préférence pour des outils de prix et d'innovation plutôt que l'interdiction large.",
-    europeanPosition: "Favorable à l'intégration des marchés, plus réservé sur l'harmonisation sociale lourde.",
+    shortDescription:
+        "Met l'accent sur le marché, la concurrence et la limitation de l'intervention économique de l'État.",
+    longDescription:
+        "Le libéralisme économique insiste sur l'efficacité du marché, la propriété privée et la liberté d'entreprendre. Ses partisans discutent du niveau acceptable de régulation, de fiscalité et de protection sociale.",
+    historicalOrigins:
+        "École classique, ordolibéralisme, débats contemporains sur la dérégulation et la mondialisation.",
+    economicPosition:
+        "Priorité au marché ; critique des monopoles publics et des normes jugées excessives.",
+    socialPosition:
+        "Responsabilité individuelle ; filets sociaux parfois acceptés de façon ciblée.",
+    institutionalPosition:
+        "État garant des règles du jeu plutôt que producteur.",
+    ecologicalPosition:
+        "Préférence pour des outils de prix et d'innovation plutôt que l'interdiction large.",
+    europeanPosition:
+        "Favorable à l'intégration des marchés, plus réservé sur l'harmonisation sociale lourde.",
     civilLibertiesPosition: "Insiste surtout sur la liberté économique.",
     internalNuances: "Du libéralisme régulé à des versions très minimalistes.",
     relatedCurrents: const ["liberalisme", "libertarianisme", "conservatisme"],
     opposedCurrents: const ["socialisme", "communisme", "anticapitalisme"],
     examplesInFrance: [
-      FranceExample(label: "Sensibilités libérales-économiques", context: "Des responsables et think tanks ont défendu des politiques proches, selon les contextes.", period: "Depuis les années 1980"),
+      FranceExample(
+        label: "Sensibilités libérales-économiques",
+        context:
+            "Des responsables et think tanks ont défendu des politiques proches, selon les contextes.",
+        period: "Depuis les années 1980",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -276,20 +416,33 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "liberalisme_politique",
     name: "Libéralisme politique",
-    shortDescription: "Priorise les droits fondamentaux, le pluralisme et la limitation du pouvoir arbitraire.",
-    longDescription: "Le libéralisme politique place au centre les libertés civiles, le pluralisme et l'État de droit. Il peut se combiner avec des politiques économiques diverses, plus sociales ou plus de marché.",
-    historicalOrigins: "Tradition constitutionnelle et parlementaire européenne ; influence majeure sur les démocraties libérales.",
-    economicPosition: "Non déterminé : compatible avec plusieurs modèles économiques.",
+    shortDescription:
+        "Priorise les droits fondamentaux, le pluralisme et la limitation du pouvoir arbitraire.",
+    longDescription:
+        "Le libéralisme politique place au centre les libertés civiles, le pluralisme et l'État de droit. Il peut se combiner avec des politiques économiques diverses, plus sociales ou plus de marché.",
+    historicalOrigins:
+        "Tradition constitutionnelle et parlementaire européenne ; influence majeure sur les démocraties libérales.",
+    economicPosition:
+        "Non déterminé : compatible avec plusieurs modèles économiques.",
     socialPosition: "Protection des minorités, égalité des droits, tolérance.",
-    institutionalPosition: "Contrôles et équilibres, justice indépendante, droits opposables.",
-    ecologicalPosition: "Variable ; souvent favorable à des politiques fondées sur le droit et la science.",
-    europeanPosition: "Souvent attaché à l'État de droit européen et aux libertés de circulation.",
+    institutionalPosition:
+        "Contrôles et équilibres, justice indépendante, droits opposables.",
+    ecologicalPosition:
+        "Variable ; souvent favorable à des politiques fondées sur le droit et la science.",
+    europeanPosition:
+        "Souvent attaché à l'État de droit européen et aux libertés de circulation.",
     civilLibertiesPosition: "Priorité structurante.",
-    internalNuances: "Libéralisme politique ≠ automatiquement libéralisme économique.",
+    internalNuances:
+        "Libéralisme politique ≠ automatiquement libéralisme économique.",
     relatedCurrents: const ["liberalisme", "progressisme", "republicanisme"],
     opposedCurrents: const ["nationalisme", "anarchisme"],
     examplesInFrance: [
-      FranceExample(label: "Tradition des droits de l'homme en France", context: "Des institutions et mouvements ont porté des idées proches de la protection des libertés.", period: "Depuis 1789"),
+      FranceExample(
+        label: "Tradition des droits de l'homme en France",
+        context:
+            "Des institutions et mouvements ont porté des idées proches de la protection des libertés.",
+        period: "Depuis 1789",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -310,20 +463,36 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "democratie_chretienne",
     name: "Démocratie chrétienne",
-    shortDescription: "S'inspire de valeurs chrétiennes sociales : personne, solidarité, subsidiarité.",
-    longDescription: "La démocratie chrétienne articule engagement démocratique et références à la doctrine sociale chrétienne : dignité de la personne, solidarité, subsidiarité. En France, elle a été moins hégémonique qu'en Allemagne ou en Italie, mais a influencé des sensibilités du centre.",
-    historicalOrigins: "XXe siècle européen ; reconstruction d'après-guerre ; présence plus diffuse en France.",
-    economicPosition: "Économie sociale de marché, intermediaries, responsabilité.",
+    shortDescription:
+        "S'inspire de valeurs chrétiennes sociales : personne, solidarité, subsidiarité.",
+    longDescription:
+        "La démocratie chrétienne articule engagement démocratique et références à la doctrine sociale chrétienne : dignité de la personne, solidarité, subsidiarité. En France, elle a été moins hégémonique qu'en Allemagne ou en Italie, mais a influencé des sensibilités du centre.",
+    historicalOrigins:
+        "XXe siècle européen ; reconstruction d'après-guerre ; présence plus diffuse en France.",
+    economicPosition:
+        "Économie sociale de marché, intermediaries, responsabilité.",
     socialPosition: "Famille, cohésion, attention aux plus vulnérables.",
-    institutionalPosition: "Démocratie, décentralisation, corps intermédiaires.",
-    ecologicalPosition: "Stewardship / responsabilité envers la création, selon les périodes.",
+    institutionalPosition:
+        "Démocratie, décentralisation, corps intermédiaires.",
+    ecologicalPosition:
+        "Stewardship / responsabilité envers la création, selon les périodes.",
     europeanPosition: "Historiquement très liée à la construction européenne.",
-    civilLibertiesPosition: "Libertés dans un cadre de valeurs et de responsabilités.",
+    civilLibertiesPosition:
+        "Libertés dans un cadre de valeurs et de responsabilités.",
     internalNuances: "Ailes plus sociales ou plus conservatrices.",
-    relatedCurrents: const ["conservatisme", "social_democratie", "conservatisme_social"],
+    relatedCurrents: const [
+      "conservatisme",
+      "social_democratie",
+      "conservatisme_social",
+    ],
     opposedCurrents: const ["communisme", "anarchisme", "libertarianisme"],
     examplesInFrance: [
-      FranceExample(label: "Sensibilités démocrate-chrétiennes", context: "Des formations du centre ont historiquement défendu des idées proches, sans monopole sur ce courant.", period: "Après 1945"),
+      FranceExample(
+        label: "Sensibilités démocrate-chrétiennes",
+        context:
+            "Des formations du centre ont historiquement défendu des idées proches, sans monopole sur ce courant.",
+        period: "Après 1945",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -344,20 +513,35 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "conservatisme",
     name: "Conservatisme",
-    shortDescription: "Préfère la continuité, l'expérience historique et la réforme prudente plutôt que la rupture.",
-    longDescription: "Le conservatisme valorise les institutions éprouvées, la transmission et la stabilité. Il n'est pas forcément opposé à tout changement, mais se méfie des transformations rapides jugées risquées.",
-    historicalOrigins: "Réponses aux révolutions modernes ; formes françaises spécifiques (légitimisme, orléanisme, conservatismes républicains).",
-    economicPosition: "Souvent favorable à la propriété et à l'ordre économique établi, avec des exceptions sociales.",
+    shortDescription:
+        "Préfère la continuité, l'expérience historique et la réforme prudente plutôt que la rupture.",
+    longDescription:
+        "Le conservatisme valorise les institutions éprouvées, la transmission et la stabilité. Il n'est pas forcément opposé à tout changement, mais se méfie des transformations rapides jugées risquées.",
+    historicalOrigins:
+        "Réponses aux révolutions modernes ; formes françaises spécifiques (légitimisme, orléanisme, conservatismes républicains).",
+    economicPosition:
+        "Souvent favorable à la propriété et à l'ordre économique établi, avec des exceptions sociales.",
     socialPosition: "Traditions, autorité, responsabilité.",
     institutionalPosition: "Continuité institutionnelle, État fort possible.",
-    ecologicalPosition: "Prudence face aux politiques jugées coûteuses ou disruptives ; non homogène.",
-    europeanPosition: "Positions variables, du pro-européisme modéré au scepticisme.",
+    ecologicalPosition:
+        "Prudence face aux politiques jugées coûteuses ou disruptives ; non homogène.",
+    europeanPosition:
+        "Positions variables, du pro-européisme modéré au scepticisme.",
     civilLibertiesPosition: "Libertés dans un cadre d'ordre et de devoirs.",
     internalNuances: "Conservatisme libéral, social, national.",
-    relatedCurrents: const ["conservatisme_social", "gaullisme", "liberalisme_economique"],
+    relatedCurrents: const [
+      "conservatisme_social",
+      "gaullisme",
+      "liberalisme_economique",
+    ],
     opposedCurrents: const ["progressisme", "anarchisme", "communisme"],
     examplesInFrance: [
-      FranceExample(label: "Droites parlementaires françaises", context: "Plusieurs familles de droite ont défendu, à des degrés divers, des idées de continuité et d'ordre.", period: "XIXe–XXIe s."),
+      FranceExample(
+        label: "Droites parlementaires françaises",
+        context:
+            "Plusieurs familles de droite ont défendu, à des degrés divers, des idées de continuité et d'ordre.",
+        period: "XIXe–XXIe s.",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -378,20 +562,34 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "conservatisme_social",
     name: "Conservatisme social",
-    shortDescription: "Met l'accent sur la famille, les mœurs et la transmission culturelle.",
-    longDescription: "Le conservatisme social insiste sur les normes morales, la famille et la cohésion culturelle. Il peut se combiner avec des politiques économiques diverses.",
-    historicalOrigins: "Présent dans plusieurs traditions religieuses et laïques attachées à l'ordre moral.",
+    shortDescription:
+        "Met l'accent sur la famille, les mœurs et la transmission culturelle.",
+    longDescription:
+        "Le conservatisme social insiste sur les normes morales, la famille et la cohésion culturelle. Il peut se combiner avec des politiques économiques diverses.",
+    historicalOrigins:
+        "Présent dans plusieurs traditions religieuses et laïques attachées à l'ordre moral.",
     economicPosition: "Variable : parfois protectionniste, parfois libéral.",
-    socialPosition: "Priorité aux structures familiales et aux normes héritées.",
-    institutionalPosition: "Autorité, stabilité, méfiance envers certaines réformes sociétales.",
+    socialPosition:
+        "Priorité aux structures familiales et aux normes héritées.",
+    institutionalPosition:
+        "Autorité, stabilité, méfiance envers certaines réformes sociétales.",
     ecologicalPosition: "Souvent secondaire par rapport aux enjeux de société.",
     europeanPosition: "Souvent réservé sur l'intégration normative européenne.",
     civilLibertiesPosition: "Limites possibles au nom de la morale commune.",
     internalNuances: "Versions religieuses ou laïques.",
-    relatedCurrents: const ["conservatisme", "democratie_chretienne", "national_conservatisme"],
+    relatedCurrents: const [
+      "conservatisme",
+      "democratie_chretienne",
+      "national_conservatisme",
+    ],
     opposedCurrents: const ["progressisme", "liberalisme_politique"],
     examplesInFrance: [
-      FranceExample(label: "Courants de droite sociale", context: "Des mouvements ont porté des positions proches sur la famille et les mœurs, de façon contextuelle.", period: "XXe–XXIe s."),
+      FranceExample(
+        label: "Courants de droite sociale",
+        context:
+            "Des mouvements ont porté des positions proches sur la famille et les mœurs, de façon contextuelle.",
+        period: "XXe–XXIe s.",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -412,20 +610,34 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "gaullisme",
     name: "Gaullisme",
-    shortDescription: "Tradition française d'indépendance nationale, d'État fort et de rassemblement au-delà des partis.",
-    longDescription: "Le gaullisme associe souveraineté, grandeur, institutions stables (Ve République) et volontarisme étatique. Il traverse des sensibilités de droite et parfois de centre, avec des héritages multiples.",
-    historicalOrigins: "Structuré autour de l'action et de la pensée de Charles de Gaulle, puis de familles politiques se réclamant de cet héritage.",
-    economicPosition: "Colbertisme possible : planification indicative, grands programmes industriels, pragmatisme.",
-    socialPosition: "Unité nationale, participation, services publics stratégiques.",
-    institutionalPosition: "Présidentialisation, stabilité, autorité de l'État.",
-    ecologicalPosition: "Souveraineté énergétique (dont nucléaire) souvent centrale.",
+    shortDescription:
+        "Tradition française d'indépendance nationale, d'État fort et de rassemblement au-delà des partis.",
+    longDescription:
+        "Le gaullisme associe souveraineté, grandeur, institutions stables (Ve République) et volontarisme étatique. Il traverse des sensibilités de droite et parfois de centre, avec des héritages multiples.",
+    historicalOrigins:
+        "Structuré autour de l'action et de la pensée de Charles de Gaulle, puis de familles politiques se réclamant de cet héritage.",
+    economicPosition:
+        "Colbertisme possible : planification indicative, grands programmes industriels, pragmatisme.",
+    socialPosition:
+        "Unité nationale, participation, services publics stratégiques.",
+    institutionalPosition:
+        "Présidentialisation, stabilité, autorité de l'État.",
+    ecologicalPosition:
+        "Souveraineté énergétique (dont nucléaire) souvent centrale.",
     europeanPosition: "Europe des nations plutôt que fédéralisme poussé.",
-    civilLibertiesPosition: "Ordre public et autorité peuvent primer dans certaines lectures.",
-    internalNuances: "Gaullisme de gauche, néogaullisme libéral, souverainisme d'inspiration gaullienne.",
+    civilLibertiesPosition:
+        "Ordre public et autorité peuvent primer dans certaines lectures.",
+    internalNuances:
+        "Gaullisme de gauche, néogaullisme libéral, souverainisme d'inspiration gaullienne.",
     relatedCurrents: const ["souverainisme", "republicanisme", "conservatisme"],
     opposedCurrents: const ["anarchisme", "libertarianisme"],
     examplesInFrance: [
-      FranceExample(label: "Familles se réclamant du gaullisme", context: "Des partis et personnalités ont repris certaines idées d'indépendance et d'État fort, de façon partielle.", period: "Depuis 1958"),
+      FranceExample(
+        label: "Familles se réclamant du gaullisme",
+        context:
+            "Des partis et personnalités ont repris certaines idées d'indépendance et d'État fort, de façon partielle.",
+        period: "Depuis 1958",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -446,20 +658,32 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "souverainisme",
     name: "Souverainisme",
-    shortDescription: "Défend la primauté de la décision nationale face aux instances supranationales.",
-    longDescription: "Le souverainisme insiste sur la capacité d'un peuple à décider dans le cadre de l'État-nation. Il existe à gauche comme à droite, avec des priorités économiques et sociales différentes.",
-    historicalOrigins: "Réactivé par les débats européens, monétaires et commerciaux depuis les années 1990.",
-    economicPosition: "Souvent critique de la mondialisation non maîtrisée ; protectionnisme possible.",
+    shortDescription:
+        "Défend la primauté de la décision nationale face aux instances supranationales.",
+    longDescription:
+        "Le souverainisme insiste sur la capacité d'un peuple à décider dans le cadre de l'État-nation. Il existe à gauche comme à droite, avec des priorités économiques et sociales différentes.",
+    historicalOrigins:
+        "Réactivé par les débats européens, monétaires et commerciaux depuis les années 1990.",
+    economicPosition:
+        "Souvent critique de la mondialisation non maîtrisée ; protectionnisme possible.",
     socialPosition: "Variable selon l'aile gauche ou droite.",
     institutionalPosition: "Primauté du cadre national et du suffrage.",
-    ecologicalPosition: "Souveraineté alimentaire et énergétique souvent mises en avant.",
-    europeanPosition: "Critique de l'intégration jugée trop poussée ; pas forcément anti-européen absolu.",
-    civilLibertiesPosition: "Démocratie nationale comme condition des libertés collectives.",
+    ecologicalPosition:
+        "Souveraineté alimentaire et énergétique souvent mises en avant.",
+    europeanPosition:
+        "Critique de l'intégration jugée trop poussée ; pas forcément anti-européen absolu.",
+    civilLibertiesPosition:
+        "Démocratie nationale comme condition des libertés collectives.",
     internalNuances: "Souverainisme de gauche / de droite.",
     relatedCurrents: const ["gaullisme", "nationalisme", "republicanisme"],
     opposedCurrents: const ["liberalisme_economique", "progressisme"],
     examplesInFrance: [
-      FranceExample(label: "Mouvements souverainistes", context: "Des organisations de sensibilités différentes ont défendu des idées proches sur la primauté nationale.", period: "Depuis les années 1990"),
+      FranceExample(
+        label: "Mouvements souverainistes",
+        context:
+            "Des organisations de sensibilités différentes ont défendu des idées proches sur la primauté nationale.",
+        period: "Depuis les années 1990",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -480,20 +704,33 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "republicanisme",
     name: "Républicanisme",
-    shortDescription: "Attachement à la République : égalité civique, laïcité, intérêt général et école commune.",
-    longDescription: "Le républicanisme français met l'accent sur la citoyenneté, l'indivisibilité de la République et la laïcité. Il traverse plusieurs familles politiques et ne se réduit pas à un seul parti.",
-    historicalOrigins: "Héritage de 1789, de la IIIe République et de l'école publique.",
-    economicPosition: "Souvent favorable à un État stratège et aux services publics.",
+    shortDescription:
+        "Attachement à la République : égalité civique, laïcité, intérêt général et école commune.",
+    longDescription:
+        "Le républicanisme français met l'accent sur la citoyenneté, l'indivisibilité de la République et la laïcité. Il traverse plusieurs familles politiques et ne se réduit pas à un seul parti.",
+    historicalOrigins:
+        "Héritage de 1789, de la IIIe République et de l'école publique.",
+    economicPosition:
+        "Souvent favorable à un État stratège et aux services publics.",
     socialPosition: "Égalité formelle, assimilation républicaine, mérite.",
-    institutionalPosition: "République une et indivisible ; débat sur le rôle du président.",
-    ecologicalPosition: "Variable ; intérêt général et long terme peuvent justifier l'action publique.",
-    europeanPosition: "Compatible avec l'Europe si la République conserve ses principes.",
-    civilLibertiesPosition: "Libertés dans le cadre de la loi commune et de la laïcité.",
+    institutionalPosition:
+        "République une et indivisible ; débat sur le rôle du président.",
+    ecologicalPosition:
+        "Variable ; intérêt général et long terme peuvent justifier l'action publique.",
+    europeanPosition:
+        "Compatible avec l'Europe si la République conserve ses principes.",
+    civilLibertiesPosition:
+        "Libertés dans le cadre de la loi commune et de la laïcité.",
     internalNuances: "Républicanisme social, libéral, plus conservateur.",
     relatedCurrents: const ["radicalisme", "gaullisme", "socialisme"],
     opposedCurrents: const ["anarchisme"],
     examplesInFrance: [
-      FranceExample(label: "Tradition républicaine française", context: "Des institutions et courants très divers se réclament de principes proches.", period: "Depuis la IIIe République"),
+      FranceExample(
+        label: "Tradition républicaine française",
+        context:
+            "Des institutions et courants très divers se réclament de principes proches.",
+        period: "Depuis la IIIe République",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -514,20 +751,40 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "national_conservatisme",
     name: "National-conservatisme",
-    shortDescription: "Combine défense de l'identité nationale, ordre et scepticisme envers certaines mutations sociales.",
-    longDescription: "Le national-conservatisme articule souveraineté, priorité nationale et conservatisme culturel. Il se distingue du libéralisme économique pur comme du progressisme culturel.",
-    historicalOrigins: "Formulations contemporaines dans plusieurs démocraties ; en France, proche de certaines droites identitaires ou nationales.",
-    economicPosition: "Souvent protectionniste ou interventionniste sur l'industrie nationale.",
+    shortDescription:
+        "Combine défense de l'identité nationale, ordre et scepticisme envers certaines mutations sociales.",
+    longDescription:
+        "Le national-conservatisme articule souveraineté, priorité nationale et conservatisme culturel. Il se distingue du libéralisme économique pur comme du progressisme culturel.",
+    historicalOrigins:
+        "Formulations contemporaines dans plusieurs démocraties ; en France, proche de certaines droites identitaires ou nationales.",
+    economicPosition:
+        "Souvent protectionniste ou interventionniste sur l'industrie nationale.",
     socialPosition: "Identité, sécurité, mœurs plus conservatrices.",
     institutionalPosition: "État fort sur l'immigration et la sécurité.",
-    ecologicalPosition: "Secondaire ou instrumentalisée au service de la souveraineté.",
+    ecologicalPosition:
+        "Secondaire ou instrumentalisée au service de la souveraineté.",
     europeanPosition: "Sceptique envers l'intégration politique.",
-    civilLibertiesPosition: "Sécurité et identité peuvent limiter certaines libertés.",
-    internalNuances: "De la droite nationale parlementaire à des formes plus dures.",
-    relatedCurrents: const ["nationalisme", "conservatisme_social", "souverainisme"],
-    opposedCurrents: const ["progressisme", "ecologie_politique", "liberalisme_politique"],
+    civilLibertiesPosition:
+        "Sécurité et identité peuvent limiter certaines libertés.",
+    internalNuances:
+        "De la droite nationale parlementaire à des formes plus dures.",
+    relatedCurrents: const [
+      "nationalisme",
+      "conservatisme_social",
+      "souverainisme",
+    ],
+    opposedCurrents: const [
+      "progressisme",
+      "ecologie_politique",
+      "liberalisme_politique",
+    ],
     examplesInFrance: [
-      FranceExample(label: "Droites nationales contemporaines", context: "Des mouvements ont défendu des idées proches sur l'identité et la priorité nationale, de façon contextuelle et datée.", period: "XXIe s."),
+      FranceExample(
+        label: "Droites nationales contemporaines",
+        context:
+            "Des mouvements ont défendu des idées proches sur l'identité et la priorité nationale, de façon contextuelle et datée.",
+        period: "XXIe s.",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -548,9 +805,12 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "nationalisme",
     name: "Nationalisme",
-    shortDescription: "Place la nation au centre de la légitimité politique et de la solidarité.",
-    longDescription: "Le nationalisme affirme que la nation est le cadre principal d'appartenance et de décision. Il existe des nationalismes inclusifs ou exclusifs, de gauche comme de droite, aux conséquences très différentes.",
-    historicalOrigins: "XIXe siècle européen ; formes républicaines, ethniques, anticoloniales ou expansionnistes selon les contextes.",
+    shortDescription:
+        "Place la nation au centre de la légitimité politique et de la solidarité.",
+    longDescription:
+        "Le nationalisme affirme que la nation est le cadre principal d'appartenance et de décision. Il existe des nationalismes inclusifs ou exclusifs, de gauche comme de droite, aux conséquences très différentes.",
+    historicalOrigins:
+        "XIXe siècle européen ; formes républicaines, ethniques, anticoloniales ou expansionnistes selon les contextes.",
     economicPosition: "Préférence nationale possible en matière économique.",
     socialPosition: "Solidarité nationale prioritaire.",
     institutionalPosition: "Souveraineté nationale renforcée.",
@@ -558,10 +818,19 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
     europeanPosition: "Souvent critique de la dilution nationale.",
     civilLibertiesPosition: "Peut subordonner l'individu à la nation.",
     internalNuances: "Nationalisme républicain ≠ nationalisme ethnoculturel.",
-    relatedCurrents: const ["souverainisme", "national_conservatisme", "gaullisme"],
+    relatedCurrents: const [
+      "souverainisme",
+      "national_conservatisme",
+      "gaullisme",
+    ],
     opposedCurrents: const ["anarchisme", "progressisme"],
     examplesInFrance: [
-      FranceExample(label: "Expressions nationalistes en France", context: "Des courants très différents se sont réclamés de la nation ; l'association doit rester prudente et contextualisée.", period: "XIXe–XXIe s."),
+      FranceExample(
+        label: "Expressions nationalistes en France",
+        context:
+            "Des courants très différents se sont réclamés de la nation ; l'association doit rester prudente et contextualisée.",
+        period: "XIXe–XXIe s.",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -582,20 +851,34 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "libertarianisme",
     name: "Libertarianisme",
-    shortDescription: "Maximise la liberté individuelle et minimise l'État, y compris dans l'économie.",
-    longDescription: "Le libertarianisme pousse loin la logique de non-interférence : impôts limités, régulation minimale, priorités aux contrats et à la propriété. Il est plus influent dans le débat américain, mais existe comme référence intellectuelle en France.",
-    historicalOrigins: "Traditions individualistes, anarcho-capitalistes et minarchistes du XXe siècle.",
-    economicPosition: "Marché quasi sans frein ; opposition aux monopoles d'État.",
+    shortDescription:
+        "Maximise la liberté individuelle et minimise l'État, y compris dans l'économie.",
+    longDescription:
+        "Le libertarianisme pousse loin la logique de non-interférence : impôts limités, régulation minimale, priorités aux contrats et à la propriété. Il est plus influent dans le débat américain, mais existe comme référence intellectuelle en France.",
+    historicalOrigins:
+        "Traditions individualistes, anarcho-capitalistes et minarchistes du XXe siècle.",
+    economicPosition:
+        "Marché quasi sans frein ; opposition aux monopoles d'État.",
     socialPosition: "Responsabilité personnelle extrême.",
-    institutionalPosition: "État minimal (police, justice, défense) voire contestation plus large.",
+    institutionalPosition:
+        "État minimal (police, justice, défense) voire contestation plus large.",
     ecologicalPosition: "Méfiance envers la planification écologique étatique.",
     europeanPosition: "Critique des bureaucraties supranationales.",
     civilLibertiesPosition: "Absolues autant que possible.",
     internalNuances: "Minarchisme vs anarcho-capitalisme.",
-    relatedCurrents: const ["liberalisme_economique", "liberalisme", "anarchisme"],
+    relatedCurrents: const [
+      "liberalisme_economique",
+      "liberalisme",
+      "anarchisme",
+    ],
     opposedCurrents: const ["socialisme", "communisme", "gaullisme"],
     examplesInFrance: [
-      FranceExample(label: "Cercles libertariens", context: "Des associations et auteurs ont diffusé des idées proches, sans équivalent partisan majeur en France.", period: "Fin XXe–XXIe s."),
+      FranceExample(
+        label: "Cercles libertariens",
+        context:
+            "Des associations et auteurs ont diffusé des idées proches, sans équivalent partisan majeur en France.",
+        period: "Fin XXe–XXIe s.",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -616,20 +899,35 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "anarchisme",
     name: "Anarchisme",
-    shortDescription: "Refuse la domination et l'État central au profit d'organisations volontaires et horizontales.",
-    longDescription: "L'anarchisme critique l'autorité politique et économique concentrée. Il privilégie l'auto-organisation, le fédéralisme libre et, selon les branches, le syndicalisme ou l'individualisme.",
-    historicalOrigins: "Proudhon, Bakounine, Kropotkine ; forte présence dans le mouvement ouvrier et certaines luttes sociales.",
-    economicPosition: "Anti-capitaliste le plus souvent ; mutualisme, collectivisme ou communisme libertaire.",
+    shortDescription:
+        "Refuse la domination et l'État central au profit d'organisations volontaires et horizontales.",
+    longDescription:
+        "L'anarchisme critique l'autorité politique et économique concentrée. Il privilégie l'auto-organisation, le fédéralisme libre et, selon les branches, le syndicalisme ou l'individualisme.",
+    historicalOrigins:
+        "Proudhon, Bakounine, Kropotkine ; forte présence dans le mouvement ouvrier et certaines luttes sociales.",
+    economicPosition:
+        "Anti-capitaliste le plus souvent ; mutualisme, collectivisme ou communisme libertaire.",
     socialPosition: "Égalité, entraide, critique des hiérarchies.",
-    institutionalPosition: "Contre l'État central ; organisations horizontales.",
+    institutionalPosition:
+        "Contre l'État central ; organisations horizontales.",
     ecologicalPosition: "Souvent proche d'écologies radicales et locales.",
     europeanPosition: "Méfiance envers les États et super-États.",
     civilLibertiesPosition: "Maximale, collective et individuelle.",
-    internalNuances: "Anarcho-syndicalisme, anarchisme individualiste, communalisme.",
-    relatedCurrents: const ["anticapitalisme", "communisme", "ecologie_politique"],
+    internalNuances:
+        "Anarcho-syndicalisme, anarchisme individualiste, communalisme.",
+    relatedCurrents: const [
+      "anticapitalisme",
+      "communisme",
+      "ecologie_politique",
+    ],
     opposedCurrents: const ["gaullisme", "conservatisme", "nationalisme"],
     examplesInFrance: [
-      FranceExample(label: "Traditions anarchistes et syndicalistes", context: "Des syndicats et groupes ont historiquement défendu des idées proches de l'auto-organisation.", period: "Fin XIXe–XXe s."),
+      FranceExample(
+        label: "Traditions anarchistes et syndicalistes",
+        context:
+            "Des syndicats et groupes ont historiquement défendu des idées proches de l'auto-organisation.",
+        period: "Fin XIXe–XXe s.",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [
@@ -650,20 +948,40 @@ List<PoliticalCurrent> loadPoliticalCurrents() => [
   PoliticalCurrent(
     id: "anticapitalisme",
     name: "Anticapitalisme",
-    shortDescription: "Critique le capitalisme comme système dominant et cherche des alternatives économiques.",
-    longDescription: "L'anticapitalisme n'est pas un parti unique : c'est une attitude partagée par des communistes, socialistes radicaux, écologistes critiques ou altermondialistes. Le point commun est la remise en cause du capitalisme comme horizon.",
-    historicalOrigins: "Aussi ancien que la critique du capitalisme industriel ; reformulé par l'altermondialisme des années 1990–2000.",
-    economicPosition: "Alternatives : communs, planification démocratique, coopératives, décroissance, etc.",
+    shortDescription:
+        "Critique le capitalisme comme système dominant et cherche des alternatives économiques.",
+    longDescription:
+        "L'anticapitalisme n'est pas un parti unique : c'est une attitude partagée par des communistes, socialistes radicaux, écologistes critiques ou altermondialistes. Le point commun est la remise en cause du capitalisme comme horizon.",
+    historicalOrigins:
+        "Aussi ancien que la critique du capitalisme industriel ; reformulé par l'altermondialisme des années 1990–2000.",
+    economicPosition:
+        "Alternatives : communs, planification démocratique, coopératives, décroissance, etc.",
     socialPosition: "Justice sociale radicale, critique de la marchandisation.",
-    institutionalPosition: "Selon les branches : réforme radicale, rupture, autonomie.",
+    institutionalPosition:
+        "Selon les branches : réforme radicale, rupture, autonomie.",
     ecologicalPosition: "Souvent liée à une critique du productivisme.",
-    europeanPosition: "Critique fréquente de l'orientation libérale européenne.",
+    europeanPosition:
+        "Critique fréquente de l'orientation libérale européenne.",
     civilLibertiesPosition: "Émancipation ; débat sur les moyens.",
     internalNuances: "Altermondialisme, marxismes, écologie radicale.",
-    relatedCurrents: const ["communisme", "socialisme", "ecologie_politique", "anarchisme"],
-    opposedCurrents: const ["liberalisme_economique", "libertarianisme", "conservatisme"],
+    relatedCurrents: const [
+      "communisme",
+      "socialisme",
+      "ecologie_politique",
+      "anarchisme",
+    ],
+    opposedCurrents: const [
+      "liberalisme_economique",
+      "libertarianisme",
+      "conservatisme",
+    ],
     examplesInFrance: [
-      FranceExample(label: "Mouvements altermondialistes", context: "Des collectifs ont porté des critiques proches du capitalisme mondialisé, sans former un bloc unique.", period: "Depuis les années 1990"),
+      FranceExample(
+        label: "Mouvements altermondialistes",
+        context:
+            "Des collectifs ont porté des critiques proches du capitalisme mondialisé, sans former un bloc unique.",
+        period: "Depuis les années 1990",
+      ),
     ],
     lastUpdated: DateTime(2026, 8, 1),
     sources: const [

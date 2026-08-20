@@ -42,7 +42,25 @@ enum PoliticalDimension {
   final String id;
 
   static PoliticalDimension fromId(String id) =>
-      PoliticalDimension.values.firstWhere((d) => d.id == id);
+      tryFromId(id) ??
+      (throw ArgumentError.value(id, 'id', 'Dimension inconnue'));
+
+  static PoliticalDimension? tryFromId(String id) {
+    for (final dimension in values) {
+      if (dimension.id == id) return dimension;
+    }
+    return null;
+  }
+
+  /// Libellé court pour les pastilles (cartes).
+  String get chipLabel => switch (this) {
+    civilLiberties => 'Libertés',
+    religionLaicity => 'Laïcité',
+    decentralization => 'Territoires',
+    internationalRelations => 'International',
+    foreignPolicy => 'Diplomatie',
+    _ => label,
+  };
 }
 
 /// Familles de dimensions pour les visualisations agrégées.

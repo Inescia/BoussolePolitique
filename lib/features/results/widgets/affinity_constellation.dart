@@ -145,9 +145,9 @@ class _YouBadge extends StatelessWidget {
       child: Text(
         'Toi',
         style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
-            ),
+          color: Colors.white,
+          fontWeight: FontWeight.w800,
+        ),
       ),
     );
   }
@@ -225,8 +225,9 @@ class _AffinityStep extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                     side: BorderSide(
-                      color: item.current.color
-                          .withValues(alpha: selected ? 0.7 : 0.22),
+                      color: item.current.color.withValues(
+                        alpha: selected ? 0.7 : 0.22,
+                      ),
                     ),
                   ),
                   child: InkWell(
@@ -241,18 +242,14 @@ class _AffinityStep extends StatelessWidget {
                               item.current.name,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
+                              style: Theme.of(context).textTheme.titleSmall
                                   ?.copyWith(fontWeight: FontWeight.w800),
                             ),
                           ),
                           const SizedBox(width: 8),
                           Text(
                             '${item.percent.round()} %',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
+                            style: Theme.of(context).textTheme.titleSmall
                                 ?.copyWith(
                                   color: item.current.color,
                                   fontWeight: FontWeight.w800,

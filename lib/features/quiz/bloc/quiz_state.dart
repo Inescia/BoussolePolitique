@@ -80,13 +80,13 @@ final class QuizState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        questions,
-        answers,
-        currentQuestion,
-        result,
-        errorMessage,
-        showPartialHint,
-        partialHintDismissed,
-      ];
+    status,
+    questions,
+    answers,
+    currentQuestion,
+    result,
+    errorMessage,
+    showPartialHint,
+    partialHintDismissed,
+  ];
 }

@@ -1,3 +1,4 @@
+import 'package:boussole_politique/core/ads/ad_config.dart';
 import 'package:boussole_politique/core/ads/ad_service.dart';
 import 'package:boussole_politique/features/quiz/bloc/quiz_bloc.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import '../../../core/extensions/context_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/content_chrome.dart';
 import '../../../core/widgets/gradient_scaffold.dart';
+import '../../../core/widgets/main_shell.dart';
 import '../../../core/widgets/page_header.dart';
 
 /// Politique de confidentialité : stockage local, pubs AdMob, droits utilisateur.
@@ -36,12 +38,16 @@ class PrivacyPage extends StatelessWidget {
     return GradientScaffold(
       child: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 40),
+          padding: EdgeInsets.fromLTRB(
+            24,
+            16,
+            24,
+            AppNavMetrics.clearance(context),
+          ),
           children: [
             const PageHeader(
               title: 'Vie privée',
-              subtitle:
-                  'Tout est stocké exclusivement sur ton téléphone.',
+              subtitle: 'Tout est stocké exclusivement sur ton téléphone.',
             ),
             const SizedBox(height: 16),
             InsightStrip(
@@ -134,7 +140,7 @@ class PrivacyPage extends StatelessWidget {
                     'Boussole Politique peut afficher des publicités via Google AdMob '
                     'pour financer l’application.\n\n'
                     '• Bannière en bas de la page des cartes\n'
-                    '• Vidéo / interstitiel occasionnel tous les 25 réponses\n'
+                    '• Vidéo / interstitiel occasionnel tous les ${AdConfig.cardsBetweenVideoAds} réponses\n'
                     '• Pas de bannière sur l’accueil\n'
                     '• Tes réponses et ton profil d’opinions ne sont pas envoyés à AdMob.',
                     style: context.textTheme.bodyLarge,

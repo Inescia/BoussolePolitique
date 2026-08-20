@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../core/extensions/context_extensions.dart';
@@ -6,7 +7,10 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/boussole_logo.dart';
 import '../../../core/widgets/content_chrome.dart';
 import '../../../core/widgets/gradient_scaffold.dart';
+import '../../../core/widgets/main_shell.dart';
 import '../../../core/widgets/page_header.dart';
+import '../../quiz/bloc/quiz_bloc.dart';
+import '../../quiz/widgets/catalog_stats_strip.dart';
 
 /// Présentation du projet : mission, méthode de calcul, impartialité.
 class AboutPage extends StatelessWidget {
@@ -17,7 +21,12 @@ class AboutPage extends StatelessWidget {
     return GradientScaffold(
       child: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 40),
+          padding: EdgeInsets.fromLTRB(
+            24,
+            16,
+            24,
+            AppNavMetrics.clearance(context),
+          ),
           children: [
             const PageHeader(
               title: 'À propos',
@@ -87,12 +96,8 @@ class AboutPage extends StatelessWidget {
             const SizedBox(height: 22),
             Text('Comment ça marche', style: context.textTheme.titleLarge),
             const SizedBox(height: 12),
-            InsightStrip(
-              items: const [
-                (Icons.style_rounded, 'Cartes', AppColors.electricBlue, null),
-                (Icons.hub_outlined, 'Courants', AppColors.coral, null),
-                (Icons.favorite_border, 'Affinités', AppColors.success, null),
-              ],
+            BlocBuilder<QuizBloc, QuizState>(
+              builder: (context, state) => CatalogStatsStrip(state: state),
             ),
             const SizedBox(height: 12),
             const FeatureTile(

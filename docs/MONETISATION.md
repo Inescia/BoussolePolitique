@@ -6,7 +6,7 @@ L’app utilise **Google AdMob** avec des **IDs de test** par défaut.
 Les pubs s’affichent ainsi :
 
 - **Bannière** : page des cartes uniquement — pas sur l’accueil
-- **Interstitiel vidéo** : tous les **25** réponses (configurable), avec cooldown 2 min
+- **Interstitiel vidéo** : tous les **20** réponses (configurable), avec cooldown 2 min
 - Interstitiel optionnel aussi en quittant les résultats
 
 Le consentement RGPD (UMP) est demandé au démarrage en Europe.

@@ -13,25 +13,29 @@ abstract final class AdConfig {
     defaultValue: true,
   );
 
-  static const String androidAppIdTest = 'ca-app-pub-3940256099942544~3347511713';
+  static const String androidAppIdTest =
+      'ca-app-pub-3940256099942544~3347511713';
   static const String iosAppIdTest = 'ca-app-pub-3940256099942544~1458002511';
 
-  static const String androidAppIdProd = 'ca-app-pub-XXXXXXXXXXXXXXXX~YYYYYYYYYY';
-  static const String iosAppIdProd = 'ca-app-pub-XXXXXXXXXXXXXXXX~YYYYYYYYYY';
+  static const String androidAppIdProd =
+      'ca-app-pub-6271365377098652~7792872830';
+  static const String iosAppIdProd = 'ca-app-pub-6271365377098652~9601562340';
 
-  static const String _androidBannerTest = 'ca-app-pub-3940256099942544/6300978111';
+  static const String _androidBannerTest =
+      'ca-app-pub-3940256099942544/6300978111';
   static const String _iosBannerTest = 'ca-app-pub-3940256099942544/2934735716';
   static const String _androidInterstitialTest =
       'ca-app-pub-3940256099942544/1033173712';
   static const String _iosInterstitialTest =
       'ca-app-pub-3940256099942544/4411468910';
 
-  static const String androidBannerProd = 'ca-app-pub-XXXXXXXXXXXXXXXX/BBBBBBBBBB';
-  static const String iosBannerProd = 'ca-app-pub-XXXXXXXXXXXXXXXX/BBBBBBBBBB';
+  static const String androidBannerProd =
+      'ca-app-pub-6271365377098652/6676745053';
+  static const String iosBannerProd = 'ca-app-pub-6271365377098652/9612386812';
   static const String androidInterstitialProd =
-      'ca-app-pub-XXXXXXXXXXXXXXXX/IIIIIIIIII';
+      'ca-app-pub-6271365377098652/4592778241';
   static const String iosInterstitialProd =
-      'ca-app-pub-XXXXXXXXXXXXXXXX/IIIIIIIIII';
+      'ca-app-pub-6271365377098652/6050059092';
 
   static bool get _useTestUnits => useTestAds || kDebugMode;
 
@@ -52,7 +56,7 @@ abstract final class AdConfig {
   }
 
   /// Une vidéo / interstitiel tous les N réponses.
-  static const int cardsBetweenVideoAds = 25;
+  static const int cardsBetweenVideoAds = 20;
 
   /// Filet de sécurité anti-spam (en plus du compteur de cartes).
   static const Duration interstitialCooldown = Duration(minutes: 2);

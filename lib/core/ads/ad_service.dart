@@ -163,8 +163,8 @@ class AdService {
   }
 
   Future<bool> get privacyOptionsRequired async {
-    final status =
-        await ConsentInformation.instance.getPrivacyOptionsRequirementStatus();
+    final status = await ConsentInformation.instance
+        .getPrivacyOptionsRequirementStatus();
     return status == PrivacyOptionsRequirementStatus.required;
   }
 

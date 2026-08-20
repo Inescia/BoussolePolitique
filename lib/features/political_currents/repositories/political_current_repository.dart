@@ -3,7 +3,7 @@ import '../models/political_current.dart';
 
 class PoliticalCurrentRepository {
   PoliticalCurrentRepository({List<PoliticalCurrent>? currents})
-      : _currents = List.unmodifiable(currents ?? loadPoliticalCurrents());
+    : _currents = List.unmodifiable(currents ?? loadPoliticalCurrents());
 
   final List<PoliticalCurrent> _currents;
 
@@ -24,6 +24,7 @@ class PoliticalCurrentRepository {
           (c) =>
               c.name.toLowerCase().contains(q) ||
               c.shortDescription.toLowerCase().contains(q) ||
+              c.longDescription.toLowerCase().contains(q) ||
               c.family.toLowerCase().contains(q),
         )
         .toList();
