@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Boussole Politique</string>
+	<string>Boussole Politique</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-6271365377098652~9601562340</string>
 	<key>SKAdNetworkItems</key>

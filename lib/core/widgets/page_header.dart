@@ -43,9 +43,6 @@ class PageHeader extends StatelessWidget {
               color: onSurface,
               height: 1.08,
               fontWeight: FontWeight.w700,
-              // Évite que les titres multi-mots (ex. « Boussole Politique »)
-              // paraissent collés avec le tracking négatif du thème.
-              letterSpacing: -0.2,
             ),
           ),
         ),

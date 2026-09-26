@@ -79,7 +79,6 @@ class BrandMark extends StatelessWidget {
                   color: titleColor,
                   fontSize: compact ? 24 : null,
                   height: 1.1,
-                  letterSpacing: 0,
                 ),
               ),
               if (!compact) ...[
