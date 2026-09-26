@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
                   sliver: SliverList.list(
                     children: [
                       const PageHeader(
-                        title: 'Accueil',
+                        title: AppConstants.appName,
                         subtitle: AppConstants.appSubtitle,
                         leading: BoussoleLogo(size: 48),
                         showBack: false,
@@ -99,7 +99,7 @@ class _PresentationCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(99),
             ),
             child: Text(
-              'BOUSSOLE POLITIQUE',
+              AppConstants.appName.toUpperCase(),
               style: context.textTheme.labelMedium?.copyWith(
                 color: Colors.white,
                 letterSpacing: 1.1,
