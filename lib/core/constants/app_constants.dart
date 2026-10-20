@@ -17,6 +17,9 @@ abstract final class AppConstants {
   /// Masquer l'aide swipe après N réponses.
   static const int swipeTipDismissAfterAnswers = 3;
 
+  /// Nombre de jalons ludiques sur le parcours cartes (indépendant des thèmes).
+  static const int quizMilestoneCount = 10;
+
   static const String prefsKeyProgress = 'quiz_progress_v1';
   static const String prefsKeyOnboardingDone = 'onboarding_done_v1';
   static const String prefsKeyHaptics = 'haptics_enabled_v1';

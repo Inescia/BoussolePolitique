@@ -15,6 +15,7 @@ import '../bloc/quiz_bloc.dart';
 import '../models/question.dart';
 import '../repositories/progress_repository.dart';
 import '../widgets/answer_buttons.dart';
+import '../widgets/milestone_progress_header.dart';
 import '../widgets/swipe_card.dart';
 
 class QuizPage extends StatefulWidget {
@@ -145,9 +146,10 @@ class _QuizPageState extends State<QuizPage> {
           p.status != c.status ||
           p.currentQuestion != c.currentQuestion ||
           p.answeredCount != c.answeredCount ||
+          p.totalAnsweredIncludingSkips != c.totalAnsweredIncludingSkips ||
           p.showPartialHint != c.showPartialHint ||
           p.errorMessage != c.errorMessage ||
-          p.result?.dimensionCoverage != c.result?.dimensionCoverage ||
+          p.questions.length != c.questions.length ||
           p.canUndo != c.canUndo,
       builder: (context, state) {
         void closeQuiz() {
@@ -240,13 +242,11 @@ class _QuizPageState extends State<QuizPage> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Semantics(
-                    label:
-                        '${state.result?.completeness.label ?? 'Profil en cours'}. '
-                        '${state.answeredCount} réponses. '
-                        'Couverture des dimensions : '
-                        '${((state.result?.dimensionCoverage ?? 0) * 100).round()} pour cent.',
-                    child: _ProgressHeader(state: state),
+                  MilestoneProgressHeader(
+                    answeredCount: state.totalAnsweredIncludingSkips,
+                    totalQuestions: state.questions.length,
+                    haptics: _haptics,
+                    reduceMotion: reduceMotion,
                   ),
                   const SizedBox(height: 10),
                   _ProfileTip(state: state),
@@ -336,43 +336,6 @@ class _QuizPageState extends State<QuizPage> {
           ),
         );
       },
-    );
-  }
-}
-
-class _ProgressHeader extends StatelessWidget {
-  const _ProgressHeader({required this.state});
-
-  final QuizState state;
-
-  @override
-  Widget build(BuildContext context) {
-    final coverage = state.result?.dimensionCoverage ?? 0;
-    final label =
-        state.result?.completeness.label ?? 'Profil en cours d’affinage';
-
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(child: Text(label, style: context.textTheme.titleSmall)),
-            Text(
-              '${(coverage * 100).round()} % de dimensions touchées',
-              style: context.textTheme.bodySmall,
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(99),
-          child: LinearProgressIndicator(
-            value: coverage.clamp(0.05, 1),
-            minHeight: 8,
-            backgroundColor: AppColors.softGray,
-            color: AppColors.electricBlue,
-          ),
-        ),
-      ],
     );
   }
 }
