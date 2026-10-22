@@ -333,15 +333,43 @@ class _ResultsPageState extends State<ResultsPage> {
                   }),
                   const SizedBox(height: 8),
                   Text(
-                    'Dimensions explorées',
+                    'Thèmes abordés',
                     style: context.textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Part des thèmes déjà touchés par tes réponses.',
+                    style: context.textTheme.bodySmall,
                   ),
                   const SizedBox(height: 12),
                   _motionFade(
                     context,
                     child: SoftCard(
-                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                      child: DimensionRadar(scores: result.dimensionScores),
+                      padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          _ThemesCoverageHeader(
+                            coverage: result.dimensionCoverage,
+                            completenessLabel: result.completeness.label,
+                          ),
+                          const SizedBox(height: 14),
+                          ...result.dimensionScores
+                              .where(
+                                (s) =>
+                                    s.family.label != 'Numérique' ||
+                                    s.answeredCount > 0,
+                              )
+                              .map(
+                                (score) => Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: _ThemeCoverageRow(score: score),
+                                ),
+                              ),
+                          const SizedBox(height: 4),
+                          DimensionRadar(scores: result.dimensionScores),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 24),
@@ -396,6 +424,99 @@ class _ResultsPageState extends State<ResultsPage> {
           ),
         );
       },
+    );
+  }
+}
+
+class _ThemesCoverageHeader extends StatelessWidget {
+  const _ThemesCoverageHeader({
+    required this.coverage,
+    required this.completenessLabel,
+  });
+
+  final double coverage;
+  final String completenessLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final pct = (coverage * 100).round();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                completenessLabel,
+                style: context.textTheme.titleSmall,
+              ),
+            ),
+            Text(
+              '$pct % des thèmes',
+              style: context.textTheme.bodySmall?.copyWith(
+                color: AppColors.warmGray,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(99),
+          child: LinearProgressIndicator(
+            value: coverage.clamp(0.05, 1),
+            minHeight: 8,
+            backgroundColor: AppColors.softGray,
+            color: AppColors.electricBlue,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ThemeCoverageRow extends StatelessWidget {
+  const _ThemeCoverageRow({required this.score});
+
+  final DimensionScore score;
+
+  @override
+  Widget build(BuildContext context) {
+    final pct = (score.coverage * 100).round();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                score.family.label,
+                style: context.textTheme.labelMedium?.copyWith(
+                  color: AppColors.ink,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Text(
+              '$pct %',
+              style: context.textTheme.labelSmall?.copyWith(
+                color: AppColors.warmGray,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(99),
+          child: LinearProgressIndicator(
+            value: score.coverage.clamp(0.02, 1),
+            minHeight: 5,
+            backgroundColor: AppColors.softGray,
+            color: AppColors.coral.withValues(alpha: 0.85),
+          ),
+        ),
+      ],
     );
   }
 }
